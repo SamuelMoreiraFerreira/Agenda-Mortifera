@@ -30,9 +30,9 @@ namespace AgendaMortifera
 
                 tbxName.Text != ""
 
-                && tbxEmail.Text != ""
+                && tbxUser.Text != ""
 
-                && tbxPhone.Text != ""
+                && tbxEmail.Text != ""
 
                 && tbxPecado.Text != ""
 
