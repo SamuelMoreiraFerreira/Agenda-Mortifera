@@ -95,7 +95,7 @@
             lblPecado.AutoSize = true;
             lblPecado.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPecado.ForeColor = Color.IndianRed;
-            lblPecado.Location = new Point(382, 94);
+            lblPecado.Location = new Point(381, 84);
             lblPecado.Name = "lblPecado";
             lblPecado.Size = new Size(89, 25);
             lblPecado.TabIndex = 20;
@@ -107,10 +107,11 @@
             tbxPecado.BorderStyle = BorderStyle.FixedSingle;
             tbxPecado.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tbxPecado.ForeColor = Color.White;
-            tbxPecado.Location = new Point(229, 125);
+            tbxPecado.Location = new Point(234, 122);
             tbxPecado.Name = "tbxPecado";
             tbxPecado.Size = new Size(374, 35);
             tbxPecado.TabIndex = 19;
+            tbxPecado.TextAlign = HorizontalAlignment.Center;
             tbxPecado.TextChanged += tbx_TextChanged;
             // 
             // lblPhone
@@ -269,6 +270,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "frmCadastrar";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro";
             gbxPessoal.ResumeLayout(false);
             gbxPessoal.PerformLayout();
