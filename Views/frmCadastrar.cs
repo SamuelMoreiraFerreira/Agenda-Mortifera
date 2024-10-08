@@ -67,17 +67,30 @@ namespace AgendaMortifera
             conexao.Open();
 
             MySqlCommand cmdVerificacao = new MySqlCommand(
-                $"SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = '{tbxEmail.Text}'",
+                $"SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario",
                 conexao
             );
 
-            if (cmdVerificacao.ExecuteReader().Read() == false)
+            cmdVerificacao.Parameters.AddWithValue("@usuario", tbxEmail.Text);
+
+            if (!cmdVerificacao.ExecuteReader().Read())
             {
+                // Cadastrando 
 
                 MySqlCommand cmdInsertInto = new MySqlCommand(
-                    $"INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES ('{tbxPecado.Text}', '{tbxName.Text}', '{tbxEmail.Text}', '{tbxPhone.Text}', '{tbxPassword.Text}');",
+                    $"INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
                     conexao
                 );
+
+                cmdInsertInto.Parameters.AddWithValue("@pecado", tbxPecado.Text);
+
+                cmdInsertInto.Parameters.AddWithValue("@nome", tbxName.Text);
+
+                cmdInsertInto.Parameters.AddWithValue("@usuario", tbxEmail.Text);
+
+                cmdInsertInto.Parameters.AddWithValue("@telefone", tbxPhone.Text);
+
+                cmdInsertInto.Parameters.AddWithValue("@senha", tbxPassword.Text);
 
                 try
                 {

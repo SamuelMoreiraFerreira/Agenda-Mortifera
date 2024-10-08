@@ -44,9 +44,13 @@ namespace AgendaMortifera
             conexao.Open();
 
             MySqlCommand cmdVerificacao = new MySqlCommand(
-                $"SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = '{tbxUser.Text}' AND tb_usuarios.senha = '{tbxPassword.Text}'",
+                $"SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND tb_usuarios.senha = @senha",
                 conexao
             );
+
+            cmdVerificacao.Parameters.AddWithValue("@usuario", tbxUser.Text);
+
+            cmdVerificacao.Parameters.AddWithValue("@senha", tbxPassword.Text);
 
             MySqlDataReader retornoVerificacao = cmdVerificacao.ExecuteReader();
 
