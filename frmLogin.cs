@@ -55,6 +55,12 @@ namespace AgendaMortifera
             {
                 MessageBox.Show($"Prazer, eu sou o Satánas. Vamos tratar do seu pecado: {retornoVerificacao["pecado"]}.", $"Bem-Vindo Sr. (a) {retornoVerificacao["nome"]}");
             }
+
+            // Usuário ou senha incorreta
+            else
+            {
+                MessageBox.Show("Usuário ou senha incorreta.", "Tente Novamente!");
+            }
         }
     }
 }
