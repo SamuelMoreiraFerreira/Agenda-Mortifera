@@ -14,5 +14,20 @@ namespace AgendaMortifera
         {
             this.screenCadastro.ShowDialog();
         }
+
+        private void tbx_TextChanged(object sender, EventArgs e)
+        {
+            // Validação dos dados dos TextBox's
+
+            if (tbxUser.Text != "" && tbxPassword.Text.Length > 8)
+            {
+                btnLogin.Enabled = true;
+            }
+
+            else
+            {
+                btnLogin.Enabled = false;
+            }
+        }
     }
 }

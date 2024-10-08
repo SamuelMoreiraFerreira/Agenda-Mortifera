@@ -35,8 +35,8 @@
             label4 = new Label();
             label3 = new Label();
             tbxPassword = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            btnLogin = new Button();
+            btnSign = new Button();
             pictureBox4 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             SuspendLayout();
@@ -79,6 +79,7 @@
             tbxUser.Name = "tbxUser";
             tbxUser.Size = new Size(310, 35);
             tbxUser.TabIndex = 5;
+            tbxUser.TextChanged += tbx_TextChanged;
             // 
             // label4
             // 
@@ -108,33 +109,35 @@
             tbxPassword.PasswordChar = '*';
             tbxPassword.Size = new Size(310, 35);
             tbxPassword.TabIndex = 11;
+            tbxPassword.TextChanged += tbx_TextChanged;
             // 
-            // button1
+            // btnLogin
             // 
-            button1.BackColor = Color.IndianRed;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(246, 325);
-            button1.Name = "button1";
-            button1.Size = new Size(149, 60);
-            button1.TabIndex = 13;
-            button1.Text = "ENTRAR";
-            button1.UseVisualStyleBackColor = false;
+            btnLogin.BackColor = Color.IndianRed;
+            btnLogin.Enabled = false;
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLogin.ForeColor = Color.White;
+            btnLogin.Location = new Point(246, 325);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(149, 60);
+            btnLogin.TabIndex = 13;
+            btnLogin.Text = "ENTRAR";
+            btnLogin.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnSign
             // 
-            button2.BackColor = Color.Transparent;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            button2.ForeColor = Color.Black;
-            button2.Location = new Point(407, 325);
-            button2.Name = "button2";
-            button2.Size = new Size(149, 60);
-            button2.TabIndex = 14;
-            button2.Text = "CADASTRAR";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            btnSign.BackColor = Color.Transparent;
+            btnSign.FlatStyle = FlatStyle.Flat;
+            btnSign.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnSign.ForeColor = Color.Black;
+            btnSign.Location = new Point(407, 325);
+            btnSign.Name = "btnSign";
+            btnSign.Size = new Size(149, 60);
+            btnSign.TabIndex = 14;
+            btnSign.Text = "CADASTRAR";
+            btnSign.UseVisualStyleBackColor = false;
+            btnSign.Click += button2_Click;
             // 
             // pictureBox4
             // 
@@ -152,8 +155,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(pictureBox4);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnSign);
+            Controls.Add(btnLogin);
             Controls.Add(label3);
             Controls.Add(tbxPassword);
             Controls.Add(label4);
@@ -178,8 +181,8 @@
         private Label label4;
         private Label label3;
         private TextBox tbxPassword;
-        private Button button1;
-        private Button button2;
+        private Button btnLogin;
+        private Button btnSign;
         private PictureBox pictureBox4;
     }
 }
