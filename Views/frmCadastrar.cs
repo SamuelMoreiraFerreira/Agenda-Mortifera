@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using AgendaMortifera.Data;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,8 +62,7 @@ namespace AgendaMortifera
 
         private void btnSign_Click(object sender, EventArgs e)
         {
-            // Estabelecendo a conexão
-            MySqlConnection conexao = new MySqlConnection(token);
+            MySqlConnection conexao = ConexaoDB.Connection();
 
             conexao.Open();
 
@@ -78,7 +78,7 @@ namespace AgendaMortifera
                 // Cadastrando 
 
                 MySqlCommand cmdInsertInto = new MySqlCommand(
-                    $"INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
+                    "INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
                     conexao
                 );
 
@@ -100,12 +100,14 @@ namespace AgendaMortifera
                     this.Close();
 
                     // Sucesso
+
                     MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
                 }
 
                 catch
                 {
                     // Erro
+
                     MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
                 }
 
@@ -114,6 +116,7 @@ namespace AgendaMortifera
             else
             {
                 // Email já cadastrado
+
                 MessageBox.Show("Este email já está cadastrado no sistema do sub mundo.", "Tente Novamente!");
             }
 

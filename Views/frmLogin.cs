@@ -1,3 +1,4 @@
+using AgendaMortifera.Data;
 using MySql.Data.MySqlClient;
 using System.Xml.Linq;
 
@@ -5,10 +6,6 @@ namespace AgendaMortifera
 {
     public partial class frmLogin : Form
     {
-
-        // String contendo as credencias para a conexão
-        private readonly string token = "Server=localhost;Database=db_agenda;User ID=root;Password=root;";
-
         public frmLogin()
         {
             InitializeComponent();
@@ -38,13 +35,12 @@ namespace AgendaMortifera
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            // Estabelecendo a conexão
-            MySqlConnection conexao = new MySqlConnection(token);
+            MySqlConnection conexao = ConexaoDB.Connection();
 
             conexao.Open();
 
             MySqlCommand cmdVerificacao = new MySqlCommand(
-                $"SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND tb_usuarios.senha = @senha",
+                "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND tb_usuarios.senha = @senha",
                 conexao
             );
 
@@ -54,15 +50,17 @@ namespace AgendaMortifera
 
             MySqlDataReader retornoVerificacao = cmdVerificacao.ExecuteReader();
 
-            // O usuário está autenticado
             if (retornoVerificacao.Read() == true)
             {
-                MessageBox.Show($"Prazer, eu sou o Satánas. Vamos tratar do seu pecado: {retornoVerificacao["pecado"]}.", $"Bem-Vindo Sr. (a) {retornoVerificacao["nome"]}");
+                // O usuário está autenticado
+
+                MessageBox.Show($"Prazer, eu sou o Satánas. Vamos tratar do seu pecado: {retornoVerificacao["pecado"]} do melhor jeito em nosso centro de reabilitação.", $"Bem-Vindo Sr. (a) {retornoVerificacao["nome"]}");
             }
 
-            // Usuário ou senha incorreta
             else
             {
+                // Usuário ou senha incorreta
+
                 MessageBox.Show("Usuário ou senha incorreta.", "Tente Novamente!");
             }
         }
