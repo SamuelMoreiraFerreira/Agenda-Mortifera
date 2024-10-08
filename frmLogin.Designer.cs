@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             lblTitle = new Label();
             label1 = new Label();
             label2 = new Label();
@@ -137,7 +138,7 @@
             btnSign.TabIndex = 14;
             btnSign.Text = "CADASTRAR";
             btnSign.UseVisualStyleBackColor = false;
-            btnSign.Click += button2_Click;
+            btnSign.Click += btnSign_Click;
             // 
             // pictureBox4
             // 
@@ -164,9 +165,12 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lblTitle);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Agenda Telefônica MORTÍFERA";
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ResumeLayout(false);
             PerformLayout();

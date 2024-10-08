@@ -21,5 +21,37 @@ namespace AgendaMortifera
         {
             this.Close();
         }
+
+        private void tbx_TextChanged(object sender, EventArgs e)
+        {
+            // Validação dos dados dos TextBox's
+
+            if (
+
+                tbxName.Text != ""
+
+                && tbxEmail.Text != ""
+
+                && tbxPhone.Text != ""
+
+                && tbxPecado.Text != ""
+
+                && tbxPassword.Text.Length > 8
+
+                && tbxRPassword.Text != ""
+
+                && tbxPassword.Text == tbxRPassword.Text
+
+            )
+
+            {
+                btnSign.Enabled = true;
+            }
+
+            else
+            {
+                btnSign.Enabled = false;
+            }
+        }
     }
 }
