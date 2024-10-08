@@ -181,6 +181,7 @@
             btnSign.TabIndex = 23;
             btnSign.Text = "CADASTRAR";
             btnSign.UseVisualStyleBackColor = false;
+            btnSign.Click += btnSign_Click;
             // 
             // lblTitle
             // 

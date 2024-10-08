@@ -125,6 +125,7 @@
             btnLogin.TabIndex = 13;
             btnLogin.Text = "ENTRAR";
             btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
             // 
             // btnSign
             // 

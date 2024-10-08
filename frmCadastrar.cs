@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,10 @@ namespace AgendaMortifera
 {
     public partial class frmCadastrar : Form
     {
+
+        // String contendo as credencias para a conexão
+        private readonly string token = "Server=localhost;Database=db_agenda;User ID=root;Password=root;";
+
         public frmCadastrar()
         {
             InitializeComponent();
@@ -36,7 +41,7 @@ namespace AgendaMortifera
 
                 && tbxPecado.Text != ""
 
-                && tbxPassword.Text.Length > 8
+                && tbxPassword.Text.Length >= 8
 
                 && tbxRPassword.Text != ""
 
@@ -52,6 +57,55 @@ namespace AgendaMortifera
             {
                 btnSign.Enabled = false;
             }
+        }
+
+        private void btnSign_Click(object sender, EventArgs e)
+        {
+            // Estabelecendo a conexão
+            MySqlConnection conexao = new MySqlConnection(token);
+
+            conexao.Open();
+
+            MySqlCommand cmdVerificacao = new MySqlCommand(
+                $"SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = '{tbxEmail.Text}'",
+                conexao
+            );
+
+            if (cmdVerificacao.ExecuteReader().Read() == false)
+            {
+
+                MySqlCommand cmdInsertInto = new MySqlCommand(
+                    $"INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES ('{tbxPecado.Text}', '{tbxName.Text}', '{tbxEmail.Text}', '{tbxPhone.Text}', '{tbxPassword.Text}');",
+                    conexao
+                );
+
+                try
+                {
+                    // O comando não retornará valor algum (ExecuteNonQuery)
+                    cmdInsertInto.ExecuteNonQuery();
+
+                    this.Close();
+
+                    // Sucesso
+                    MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
+                }
+
+                catch
+                {
+                    // Erro
+                    MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
+                }
+
+            }
+
+            else
+            {
+                // Email já cadastrado
+                MessageBox.Show("Este email já está cadastrado no sistema do sub mundo.", "Tente Novamente!");
+            }
+
+            conexao.Close();
+                      
         }
     }
 }
