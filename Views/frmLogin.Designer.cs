@@ -46,9 +46,9 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(194, 40);
+            lblTitle.Location = new Point(218, 56);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(234, 37);
+            lblTitle.Size = new Size(295, 46);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Agenda Telefônica";
             // 
@@ -57,9 +57,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.IndianRed;
-            label1.Location = new Point(422, 40);
+            label1.Location = new Point(519, 56);
             label1.Name = "label1";
-            label1.Size = new Size(170, 37);
+            label1.Size = new Size(213, 46);
             label1.TabIndex = 1;
             label1.Text = "MORTÍFERA";
             // 
@@ -67,18 +67,19 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(303, 420);
+            label2.Location = new Point(346, 560);
             label2.Name = "label2";
-            label2.Size = new Size(190, 21);
+            label2.Size = new Size(240, 28);
             label2.TabIndex = 4;
             label2.Text = "Desenvolvido por Belzebu";
             // 
             // tbxUser
             // 
             tbxUser.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxUser.Location = new Point(246, 173);
+            tbxUser.Location = new Point(281, 231);
+            tbxUser.Margin = new Padding(3, 4, 3, 4);
             tbxUser.Name = "tbxUser";
-            tbxUser.Size = new Size(310, 35);
+            tbxUser.Size = new Size(354, 42);
             tbxUser.TabIndex = 5;
             tbxUser.TextChanged += tbx_TextChanged;
             // 
@@ -86,9 +87,9 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            label4.Location = new Point(246, 136);
+            label4.Location = new Point(281, 181);
             label4.Name = "label4";
-            label4.Size = new Size(81, 25);
+            label4.Size = new Size(102, 32);
             label4.TabIndex = 10;
             label4.Text = "Usuário";
             // 
@@ -96,19 +97,20 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            label3.Location = new Point(246, 221);
+            label3.Location = new Point(281, 295);
             label3.Name = "label3";
-            label3.Size = new Size(66, 25);
+            label3.Size = new Size(82, 32);
             label3.TabIndex = 12;
             label3.Text = "Senha";
             // 
             // tbxPassword
             // 
             tbxPassword.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxPassword.Location = new Point(246, 258);
+            tbxPassword.Location = new Point(281, 344);
+            tbxPassword.Margin = new Padding(3, 4, 3, 4);
             tbxPassword.Name = "tbxPassword";
             tbxPassword.PasswordChar = '*';
-            tbxPassword.Size = new Size(310, 35);
+            tbxPassword.Size = new Size(354, 42);
             tbxPassword.TabIndex = 11;
             tbxPassword.TextChanged += tbx_TextChanged;
             // 
@@ -119,9 +121,10 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(246, 325);
+            btnLogin.Location = new Point(281, 433);
+            btnLogin.Margin = new Padding(3, 4, 3, 4);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(149, 60);
+            btnLogin.Size = new Size(170, 80);
             btnLogin.TabIndex = 13;
             btnLogin.Text = "ENTRAR";
             btnLogin.UseVisualStyleBackColor = false;
@@ -133,9 +136,10 @@
             btnSign.FlatStyle = FlatStyle.Flat;
             btnSign.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnSign.ForeColor = Color.Black;
-            btnSign.Location = new Point(407, 325);
+            btnSign.Location = new Point(465, 433);
+            btnSign.Margin = new Padding(3, 4, 3, 4);
             btnSign.Name = "btnSign";
-            btnSign.Size = new Size(149, 60);
+            btnSign.Size = new Size(170, 80);
             btnSign.TabIndex = 14;
             btnSign.Text = "CADASTRAR";
             btnSign.UseVisualStyleBackColor = false;
@@ -144,18 +148,19 @@
             // pictureBox4
             // 
             pictureBox4.Image = Properties.Resources.fire2;
-            pictureBox4.Location = new Point(422, 80);
+            pictureBox4.Location = new Point(519, 106);
+            pictureBox4.Margin = new Padding(3, 4, 3, 4);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(170, 41);
+            pictureBox4.Size = new Size(213, 55);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 17;
             pictureBox4.TabStop = false;
             // 
             // frmLogin
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(pictureBox4);
             Controls.Add(btnSign);
             Controls.Add(btnLogin);
@@ -168,6 +173,7 @@
             Controls.Add(lblTitle);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;

@@ -15,9 +15,6 @@ namespace AgendaMortifera
     public partial class frmCadastrar : Form
     {
 
-        // String contendo as credencias para a conexão
-        private readonly string token = "Server=localhost;Database=db_agenda;User ID=root;Password=root;";
-
         public frmCadastrar()
         {
             InitializeComponent();
@@ -66,62 +63,44 @@ namespace AgendaMortifera
 
             conexao.Open();
 
-            MySqlCommand cmdVerificacao = new MySqlCommand(
-                $"SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario",
+            // Cadastrando 
+
+            MySqlCommand cmdInsertInto = new MySqlCommand(
+                "INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
                 conexao
             );
 
-            cmdVerificacao.Parameters.AddWithValue("@usuario", tbxEmail.Text);
+            cmdInsertInto.Parameters.AddWithValue("@pecado", tbxPecado.Text);
 
-            if (!cmdVerificacao.ExecuteReader().Read())
+            cmdInsertInto.Parameters.AddWithValue("@nome", tbxName.Text);
+
+            cmdInsertInto.Parameters.AddWithValue("@usuario", tbxEmail.Text);
+
+            cmdInsertInto.Parameters.AddWithValue("@telefone", tbxPhone.Text);
+
+            cmdInsertInto.Parameters.AddWithValue("@senha", tbxPassword.Text);
+
+            try
             {
-                // Cadastrando 
+                // O comando não retornará valor algum (ExecuteNonQuery)
+                cmdInsertInto.ExecuteNonQuery();
 
-                MySqlCommand cmdInsertInto = new MySqlCommand(
-                    "INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
-                    conexao
-                );
+                this.Close();
 
-                cmdInsertInto.Parameters.AddWithValue("@pecado", tbxPecado.Text);
+                // Sucesso
 
-                cmdInsertInto.Parameters.AddWithValue("@nome", tbxName.Text);
-
-                cmdInsertInto.Parameters.AddWithValue("@usuario", tbxEmail.Text);
-
-                cmdInsertInto.Parameters.AddWithValue("@telefone", tbxPhone.Text);
-
-                cmdInsertInto.Parameters.AddWithValue("@senha", tbxPassword.Text);
-
-                try
-                {
-                    // O comando não retornará valor algum (ExecuteNonQuery)
-                    cmdInsertInto.ExecuteNonQuery();
-
-                    this.Close();
-
-                    // Sucesso
-
-                    MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
-                }
-
-                catch
-                {
-                    // Erro
-
-                    MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
-                }
-
+                MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
             }
 
-            else
+            catch
             {
-                // Email já cadastrado
+                // Erro
 
-                MessageBox.Show("Este email já está cadastrado no sistema do sub mundo.", "Tente Novamente!");
+                MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
             }
 
             conexao.Close();
-                      
+
         }
     }
 }

@@ -48,6 +48,7 @@ namespace AgendaMortifera
 
             cmdVerificacao.Parameters.AddWithValue("@senha", tbxPassword.Text);
 
+            // O comando retornará algum valor (ExecuteReader)
             MySqlDataReader retornoVerificacao = cmdVerificacao.ExecuteReader();
 
             if (retornoVerificacao.Read() == true)
