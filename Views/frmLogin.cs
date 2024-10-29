@@ -15,7 +15,7 @@ namespace AgendaMortifera
         {
             // Validação dos dados dos TextBox's
 
-            if (tbxUser.Text != "" && tbxPassword.Text.Length > 8)
+            if (tbxUser.Text != "" && tbxPassword.Text.Length >= 8)
             {
                 btnLogin.Enabled = true;
             }

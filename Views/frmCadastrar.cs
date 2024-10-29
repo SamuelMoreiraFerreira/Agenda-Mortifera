@@ -1,4 +1,4 @@
-﻿using AgendaMortifera.Data;
+﻿using AgendaMortifera.Controllers;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -59,32 +59,12 @@ namespace AgendaMortifera
 
         private void btnSign_Click(object sender, EventArgs e)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            conexao.Open();
-
             // Cadastrando 
 
-            MySqlCommand cmdInsertInto = new MySqlCommand(
-                "INSERT INTO tb_usuarios (pecado, nome, usuario, telefone, senha) VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
-                conexao
-            );
+            bool cadastro = new UserController().AddUser(tbxPecado.Text, tbxName.Text, tbxEmail.Text, tbxPhone.Text, tbxPassword.Text);
 
-            cmdInsertInto.Parameters.AddWithValue("@pecado", tbxPecado.Text);
-
-            cmdInsertInto.Parameters.AddWithValue("@nome", tbxName.Text);
-
-            cmdInsertInto.Parameters.AddWithValue("@usuario", tbxEmail.Text);
-
-            cmdInsertInto.Parameters.AddWithValue("@telefone", tbxPhone.Text);
-
-            cmdInsertInto.Parameters.AddWithValue("@senha", tbxPassword.Text);
-
-            try
+            if (cadastro == true)
             {
-                // O comando não retornará valor algum (ExecuteNonQuery)
-                cmdInsertInto.ExecuteNonQuery();
-
                 this.Close();
 
                 // Sucesso
@@ -92,15 +72,12 @@ namespace AgendaMortifera
                 MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
             }
 
-            catch
+            else
             {
                 // Erro
 
                 MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
             }
-
-            conexao.Close();
-
         }
     }
 }
