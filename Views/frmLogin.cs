@@ -1,3 +1,4 @@
+using AgendaMortifera.Controllers;
 using AgendaMortifera.Data;
 using MySql.Data.MySqlClient;
 using System.Xml.Linq;
@@ -35,27 +36,21 @@ namespace AgendaMortifera
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
+            UserController userController = new UserController();
 
-            conexao.Open();
+            bool retornoVerificacao = userController.UserExists(tbxUser.Text, tbxPassword.Text);
 
-            MySqlCommand cmdVerificacao = new MySqlCommand(
-                "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND tb_usuarios.senha = @senha",
-                conexao
-            );
-
-            cmdVerificacao.Parameters.AddWithValue("@usuario", tbxUser.Text);
-
-            cmdVerificacao.Parameters.AddWithValue("@senha", tbxPassword.Text);
-
-            // O comando retornará algum valor (ExecuteReader)
-            MySqlDataReader retornoVerificacao = cmdVerificacao.ExecuteReader();
-
-            if (retornoVerificacao.Read() == true)
+            if (retornoVerificacao == true)
             {
                 // O usuário está autenticado
 
-                MessageBox.Show($"Prazer, eu sou o Satánas. Vamos tratar do seu pecado: {retornoVerificacao["pecado"]} do melhor jeito em nosso centro de reabilitação.", $"Bem-Vindo Sr. (a) {retornoVerificacao["nome"]}");
+                frmPerfil screenPerfil = new frmPerfil
+                {
+                    // Atribuindo o usuario da instância
+                    usuario = tbxUser.Text
+                };
+
+                screenPerfil.ShowDialog();
             }
 
             else
