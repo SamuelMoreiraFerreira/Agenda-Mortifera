@@ -15,6 +15,9 @@ namespace AgendaMortifera.Views
 {
     public partial class frmAddCategoria : Form
     {
+
+        public string usuario;
+
         public frmAddCategoria()
         {
             InitializeComponent();
@@ -24,7 +27,7 @@ namespace AgendaMortifera.Views
         {
             // Inserindo Categoria
 
-            bool addCategoria = new CategoriaController().AddCategoria(tbxNomeCategoria.Text);
+            bool addCategoria = new CategoriaController().AddCategoria(this.usuario, tbxNomeCategoria.Text);
 
             if (addCategoria == true)
             {

@@ -33,7 +33,11 @@
             categoriasToolStripMenuItem = new ToolStripMenuItem();
             adicionarToolStripMenuItem = new ToolStripMenuItem();
             removerToolStripMenuItem = new ToolStripMenuItem();
+            lblUsuario = new Label();
+            dgvCategorias = new DataGridView();
+            btnRefresh = new Button();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -56,33 +60,68 @@
             // 
             categoriasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { adicionarToolStripMenuItem, removerToolStripMenuItem });
             categoriasToolStripMenuItem.Name = "categoriasToolStripMenuItem";
-            categoriasToolStripMenuItem.Size = new Size(180, 22);
+            categoriasToolStripMenuItem.Size = new Size(130, 22);
             categoriasToolStripMenuItem.Text = "Categorias";
             // 
             // adicionarToolStripMenuItem
             // 
             adicionarToolStripMenuItem.Name = "adicionarToolStripMenuItem";
-            adicionarToolStripMenuItem.Size = new Size(180, 22);
+            adicionarToolStripMenuItem.Size = new Size(125, 22);
             adicionarToolStripMenuItem.Text = "Adicionar";
             adicionarToolStripMenuItem.Click += AdicionarCategoria;
             // 
             // removerToolStripMenuItem
             // 
             removerToolStripMenuItem.Name = "removerToolStripMenuItem";
-            removerToolStripMenuItem.Size = new Size(180, 22);
+            removerToolStripMenuItem.Size = new Size(125, 22);
             removerToolStripMenuItem.Text = "Remover";
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(212, 203);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(75, 15);
+            lblUsuario.TabIndex = 1;
+            lblUsuario.Text = "HAHAHAHA";
+            // 
+            // dgvCategorias
+            // 
+            dgvCategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCategorias.Location = new Point(418, 131);
+            dgvCategorias.Name = "dgvCategorias";
+            dgvCategorias.ReadOnly = true;
+            dgvCategorias.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dgvCategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCategorias.Size = new Size(281, 183);
+            dgvCategorias.TabIndex = 2;
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.Location = new Point(418, 320);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(281, 39);
+            btnRefresh.TabIndex = 3;
+            btnRefresh.Text = "Atualizar";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // frmPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnRefresh);
+            Controls.Add(dgvCategorias);
+            Controls.Add(lblUsuario);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "frmPerfil";
             Text = "Dashboard";
+            Load += frmPerfil_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,5 +133,8 @@
         private ToolStripMenuItem categoriasToolStripMenuItem;
         private ToolStripMenuItem adicionarToolStripMenuItem;
         private ToolStripMenuItem removerToolStripMenuItem;
+        private Label lblUsuario;
+        private DataGridView dgvCategorias;
+        private Button btnRefresh;
     }
 }

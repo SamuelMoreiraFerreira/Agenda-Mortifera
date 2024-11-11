@@ -14,7 +14,7 @@ namespace AgendaMortifera.Controllers
     public partial class frmPerfil : Form
     {
 
-        public string usuario;
+        public required string usuario;
 
         public frmPerfil()
         {
@@ -23,8 +23,29 @@ namespace AgendaMortifera.Controllers
 
         private void AdicionarCategoria(object sender, EventArgs e)
         {
-            frmAddCategoria screenAddCategoria = new frmAddCategoria();
+            frmAddCategoria screenAddCategoria = new frmAddCategoria
+            {
+                usuario = this.usuario
+            };
+
             screenAddCategoria.Show();
+        }
+
+        private void AtualizarDataGrid()
+        {
+            dgvCategorias.DataSource = new CategoriaController().GetCategorias(this.usuario);
+        }
+
+        private void frmPerfil_Load(object sender, EventArgs e)
+        {
+            lblUsuario.Text = this.usuario;
+
+            this.AtualizarDataGrid();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.AtualizarDataGrid();
         }
     }
 }

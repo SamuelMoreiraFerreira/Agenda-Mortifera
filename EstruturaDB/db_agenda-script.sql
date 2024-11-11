@@ -14,12 +14,12 @@ CREATE TABLE IF NOT EXISTS tb_usuarios (
 
 -- USUÁRIO ADMIN
 
-INSERT INTO tb_usuarios VALUES ("Ganância", "belzebu", "admin", "666-777", "admin");
+INSERT INTO tb_usuarios VALUES ("Ganância", "belzebu", "admin", "666-777", "admin123");
 
 -- TABELA DE CATEGORIAS
 
 CREATE TABLE IF NOT EXISTS tb_categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
+    usuario INT NOT NULL,
     categoria VARCHAR(100) NOT NULL
 );

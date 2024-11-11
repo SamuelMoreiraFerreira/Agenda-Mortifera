@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Data;
 
 namespace AgendaMortifera.Controllers
 {
     internal class CategoriaController
     { 
-        public bool AddCategoria (int usuario, string categoria)
+        public bool AddCategoria (string usuario, string categoria)
         {
             try
             {
@@ -20,11 +21,11 @@ namespace AgendaMortifera.Controllers
                 conexao.Open();
 
                 MySqlCommand cmdInsertInto = new MySqlCommand(
-                    "INSERT INTO tb_categorias (id_usuario, categoria) VALUES (@id_usuario, @nome_categoria);",
+                    "INSERT INTO tb_categorias (usuario, categoria) VALUES (@usuario, @nome_categoria);",
                     conexao
                 );
 
-                cmdInsertInto.Parameters.AddWithValue("@nome_categoria", usuario);
+                cmdInsertInto.Parameters.AddWithValue("@usuario", usuario);
 
                 cmdInsertInto.Parameters.AddWithValue("@nome_categoria", categoria);
 
@@ -51,6 +52,47 @@ namespace AgendaMortifera.Controllers
             {
                 return false;
             }
+        }
+
+        public DataTable GetCategorias (string usuario)
+        {
+
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+
+                // Ponte entre a aplicação e a database, permite trabalhar com dados em memória (MySqlDataAdapter)
+                MySqlDataAdapter adpGetCategorias = new MySqlDataAdapter(
+                    "SELECT id_categoria AS 'Código', categoria AS 'Categoria' FROM tb_categorias WHERE tb_categorias.usuario = @usuario",
+                    conexao
+                );
+
+                adpGetCategorias.SelectCommand.Parameters.AddWithValue("@usuario", usuario);
+
+                // Cria uma tabela vazia
+                DataTable tabela = new DataTable();
+
+                // Preenche a tabela anteriormente criada
+                adpGetCategorias.Fill(tabela);
+
+                return tabela;
+
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return new DataTable();
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+
         }
     }
 }
