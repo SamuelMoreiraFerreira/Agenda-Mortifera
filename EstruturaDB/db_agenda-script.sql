@@ -11,3 +11,14 @@ CREATE TABLE IF NOT EXISTS tb_usuarios (
     telefone VARCHAR(15),
     senha VARCHAR(20) NOT NULL
 );
+
+-- USUÁRIO ADMIN
+
+INSERT INTO tb_usuarios VALUES ("Ganância", "belzebu", "admin", "666-777", "admin");
+
+-- TABELA DE CATEGORIAS
+
+CREATE TABLE IF NOT EXISTS tb_categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nome_categoria VARCHAR(100) NOT NULL
+);

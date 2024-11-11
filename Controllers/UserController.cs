@@ -14,7 +14,6 @@ namespace AgendaMortifera.Controllers
 
         public bool AddUser(string pecado, string nome, string usuario, string telefone, string senha)
         {
-
             try
             {
                 MySqlConnection conexao = ConexaoDB.Connection();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgendaMortifera.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,12 @@ namespace AgendaMortifera.Controllers
         public frmPerfil()
         {
             InitializeComponent();
+        }
+
+        private void AdicionarCategoria(object sender, EventArgs e)
+        {
+            frmAddCategoria screenAddCategoria = new frmAddCategoria();
+            screenAddCategoria.Show();
         }
     }
 }

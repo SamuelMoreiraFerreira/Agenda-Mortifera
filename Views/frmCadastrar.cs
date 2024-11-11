@@ -70,6 +70,7 @@ namespace AgendaMortifera
                 // Sucesso
 
                 MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
+
             }
 
             else
