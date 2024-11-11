@@ -11,7 +11,7 @@ namespace AgendaMortifera.Controllers
 {
     internal class CategoriaController
     { 
-        public bool AddCategoria (string nome_categoria)
+        public bool AddCategoria (int usuario, string categoria)
         {
             try
             {
@@ -20,11 +20,13 @@ namespace AgendaMortifera.Controllers
                 conexao.Open();
 
                 MySqlCommand cmdInsertInto = new MySqlCommand(
-                    "INSERT INTO tb_categorias (nome_categoria) VALUES (@nome_categoria);",
+                    "INSERT INTO tb_categorias (id_usuario, categoria) VALUES (@id_usuario, @nome_categoria);",
                     conexao
                 );
 
-                cmdInsertInto.Parameters.AddWithValue("@nome_categoria", nome_categoria);
+                cmdInsertInto.Parameters.AddWithValue("@nome_categoria", usuario);
+
+                cmdInsertInto.Parameters.AddWithValue("@nome_categoria", categoria);
 
                 int rowsAffected = 0;
 

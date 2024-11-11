@@ -20,5 +20,6 @@ INSERT INTO tb_usuarios VALUES ("Ganância", "belzebu", "admin", "666-777", "adm
 
 CREATE TABLE IF NOT EXISTS tb_categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-    nome_categoria VARCHAR(100) NOT NULL
+    id_usuario INT NOT NULL,
+    categoria VARCHAR(100) NOT NULL
 );
