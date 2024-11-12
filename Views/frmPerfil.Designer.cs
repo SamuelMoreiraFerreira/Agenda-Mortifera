@@ -35,9 +35,12 @@
             removerToolStripMenuItem = new ToolStripMenuItem();
             lblUsuario = new Label();
             dgvCategorias = new DataGridView();
-            btnRefresh = new Button();
+            btnRefreshCategorias = new Button();
+            dgvUsuarios = new DataGridView();
+            btnRefreshUsers = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -79,11 +82,11 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(212, 203);
+            lblUsuario.Location = new Point(82, 100);
             lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(75, 15);
+            lblUsuario.Size = new Size(165, 15);
             lblUsuario.TabIndex = 1;
-            lblUsuario.Text = "HAHAHAHA";
+            lblUsuario.Text = "ESQUECI AQUI... NÃO MEXER!";
             // 
             // dgvCategorias
             // 
@@ -95,23 +98,48 @@
             dgvCategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCategorias.Size = new Size(281, 183);
             dgvCategorias.TabIndex = 2;
+            dgvCategorias.UserDeletingRow += dgvCategorias_UserDeletingRow;
             // 
-            // btnRefresh
+            // btnRefreshCategorias
             // 
-            btnRefresh.Location = new Point(418, 320);
-            btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(281, 39);
-            btnRefresh.TabIndex = 3;
-            btnRefresh.Text = "Atualizar";
-            btnRefresh.UseVisualStyleBackColor = true;
-            btnRefresh.Click += btnRefresh_Click;
+            btnRefreshCategorias.Location = new Point(418, 320);
+            btnRefreshCategorias.Name = "btnRefreshCategorias";
+            btnRefreshCategorias.Size = new Size(281, 39);
+            btnRefreshCategorias.TabIndex = 3;
+            btnRefreshCategorias.Text = "Atualizar";
+            btnRefreshCategorias.UseVisualStyleBackColor = true;
+            btnRefreshCategorias.Click += btnRefreshCategorias_Click;
+            // 
+            // dgvUsuarios
+            // 
+            dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsuarios.Location = new Point(31, 131);
+            dgvUsuarios.Name = "dgvUsuarios";
+            dgvUsuarios.ReadOnly = true;
+            dgvUsuarios.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvUsuarios.Size = new Size(281, 183);
+            dgvUsuarios.TabIndex = 4;
+            dgvUsuarios.UserDeletingRow += dgvUsuarios_UserDeletingRow;
+            // 
+            // btnRefreshUsers
+            // 
+            btnRefreshUsers.Location = new Point(31, 320);
+            btnRefreshUsers.Name = "btnRefreshUsers";
+            btnRefreshUsers.Size = new Size(281, 39);
+            btnRefreshUsers.TabIndex = 5;
+            btnRefreshUsers.Text = "Atualizar";
+            btnRefreshUsers.UseVisualStyleBackColor = true;
+            btnRefreshUsers.Click += btnRefreshUsers_Click;
             // 
             // frmPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnRefresh);
+            Controls.Add(btnRefreshUsers);
+            Controls.Add(dgvUsuarios);
+            Controls.Add(btnRefreshCategorias);
             Controls.Add(dgvCategorias);
             Controls.Add(lblUsuario);
             Controls.Add(menuStrip1);
@@ -122,6 +150,7 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -135,6 +164,8 @@
         private ToolStripMenuItem removerToolStripMenuItem;
         private Label lblUsuario;
         private DataGridView dgvCategorias;
-        private Button btnRefresh;
+        private Button btnRefreshCategorias;
+        private DataGridView dgvUsuarios;
+        private Button btnRefreshUsers;
     }
 }

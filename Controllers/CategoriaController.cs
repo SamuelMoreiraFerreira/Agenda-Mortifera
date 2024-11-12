@@ -14,12 +14,12 @@ namespace AgendaMortifera.Controllers
     { 
         public bool AddCategoria (string usuario, string categoria)
         {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
             try
             {
-                MySqlConnection conexao = ConexaoDB.Connection();
-
-                conexao.Open();
-
                 MySqlCommand cmdInsertInto = new MySqlCommand(
                     "INSERT INTO tb_categorias (usuario, categoria) VALUES (@usuario, @nome_categoria);",
                     conexao
@@ -40,7 +40,7 @@ namespace AgendaMortifera.Controllers
                     return true;
                 }
 
-                // Algum erro
+                // Erro
                 else
                 {
                     return false;
@@ -51,6 +51,56 @@ namespace AgendaMortifera.Controllers
             catch (Exception)
             {
                 return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool DeleteCategoria (string idCategoria)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdDelete = new MySqlCommand(
+                    "DELETE FROM tb_categorias WHERE tb_categorias.id_categoria = @id_categoria;",
+                    conexao
+                );
+
+                cmdDelete.Parameters.AddWithValue("@id_categoria", idCategoria);
+
+                int rowsAffected = 0;
+
+                // Retornará a quantidade de linhas afetadas (ExecuteNonQuery)
+                rowsAffected = cmdDelete.ExecuteNonQuery();
+
+                // Sucesso, categoria excluida
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+
+                // Erro
+                else
+                {
+                    return false;
+                }
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
             }
         }
 
@@ -66,7 +116,7 @@ namespace AgendaMortifera.Controllers
 
                 // Ponte entre a aplicação e a database, permite trabalhar com dados em memória (MySqlDataAdapter)
                 MySqlDataAdapter adpGetCategorias = new MySqlDataAdapter(
-                    "SELECT id_categoria AS 'Código', categoria AS 'Categoria' FROM tb_categorias WHERE tb_categorias.usuario = @usuario",
+                    "SELECT id_categoria AS 'ID', categoria AS 'Categoria' FROM tb_categorias WHERE tb_categorias.usuario = @usuario;",
                     conexao
                 );
 

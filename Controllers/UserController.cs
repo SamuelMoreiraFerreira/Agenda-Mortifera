@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Data;
 
 namespace AgendaMortifera.Controllers
 {
@@ -14,12 +15,12 @@ namespace AgendaMortifera.Controllers
 
         public bool AddUser(string pecado, string nome, string usuario, string telefone, string senha)
         {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
             try
             {
-                MySqlConnection conexao = ConexaoDB.Connection();
-
-                conexao.Open();
-
                 MySqlCommand cmdInsertInto = new MySqlCommand(
                     "INSERT INTO tb_usuarios VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
                     conexao
@@ -46,7 +47,7 @@ namespace AgendaMortifera.Controllers
                     return true;
                 }
 
-                // Algum erro
+                // Erro
                 else
                 {
                     return false;
@@ -57,6 +58,55 @@ namespace AgendaMortifera.Controllers
             catch (Exception)
             {
                 return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool DeleteUser(string usuario)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdDeleteUser = new MySqlCommand(
+                    "DELETE FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
+                    conexao
+                );
+
+                cmdDeleteUser.Parameters.AddWithValue("@usuario", usuario);
+
+                int rowsAffected = 0;
+
+                rowsAffected = cmdDeleteUser.ExecuteNonQuery();
+
+                // Sucesso, usuário deletado
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+
+                // Erro
+                else
+                {
+                    return false;
+                }
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
             }
         }
 
@@ -69,7 +119,7 @@ namespace AgendaMortifera.Controllers
                 conexao.Open();
 
                 MySqlCommand cmdVerificacao = new MySqlCommand(
-                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY tb_usuarios.senha = @senha",
+                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY tb_usuarios.senha = @senha;",
                     conexao
                 );
 
@@ -88,6 +138,38 @@ namespace AgendaMortifera.Controllers
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public DataTable GetUsers()
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlDataAdapter adpGetUsers = new MySqlDataAdapter(
+                    "SELECT tb_usuarios.usuario AS 'User' FROM tb_usuarios;",
+                    conexao
+                );
+
+                DataTable tabela = new DataTable();
+
+                adpGetUsers.Fill(tabela);
+
+                return tabela;
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return new DataTable();
+            }
+
+            finally
+            {
+                conexao.Close();
             }
         }
     }
