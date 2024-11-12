@@ -44,7 +44,7 @@ namespace AgendaMortifera
             {
                 // O usuário está autenticado
 
-                frmPerfil screenPerfil = new frmPerfil
+                frmPerfil screenPerfil = new frmPerfil()
                 {
                     // Atribuindo o usuario da instância
                     usuario = tbxUser.Text

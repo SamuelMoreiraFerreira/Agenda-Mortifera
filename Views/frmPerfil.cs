@@ -36,14 +36,41 @@ namespace AgendaMortifera.Controllers
             dgvCategorias.DataSource = new CategoriaController().GetCategorias(this.usuario);
         }
 
+        private void AtualizarDgvUsuarios()
+        {
+            dgvUsuarios.DataSource = new UserController().GetUsers();
+        }
+
         private void frmPerfil_Load(object sender, EventArgs e)
         {
             this.AtualizarDgvCategorias();
+            
+            this.AtualizarDgvUsuarios();
         }
 
         private void btnRefreshCategorias_Click(object sender, EventArgs e)
         {
             this.AtualizarDgvCategorias();
+        }
+
+        private void btnRefreshUsers_Click(object sender, EventArgs e)
+        {
+            this.AtualizarDgvUsuarios();
+        }
+
+        private void tbxAlterarSenha_TextChanged(object sender, EventArgs e)
+        {
+            // Mínimo para a senha é 8 caractéres
+
+            if (tbxAlterarSenha.Text.Length >= 8)
+            {
+                btnConfirmarSenha.Enabled = true;
+            }
+
+            else
+            {
+                btnConfirmarSenha.Enabled = false;
+            }
         }
 
         // Apagar Categoria
@@ -56,18 +83,28 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        private void btnRefreshUsers_Click(object sender, EventArgs e)
-        {
-            dgvUsuarios.DataSource = new UserController().GetUsers();
-        }
-
         // Apagar Usuário
         private void dgvUsuarios_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            // Executa a exclusão para cada linha selecionada no DataGridView
             foreach (DataGridViewRow selectedRow in dgvUsuarios.SelectedRows)
             {
                 _ = new UserController().DeleteUser(selectedRow.Cells["User"].Value.ToString()!);
+            }
+        }
+
+        // Alterar Senha
+        private void btnConfirmarSenha_Click(object sender, EventArgs e)
+        {
+            if (new UserController().ModifySenha(this.usuario, tbxAlterarSenha.Text))
+            {
+                this.Close();
+
+                MessageBox.Show("Sua senha foi alterada com sucesso! Entre novamente.", "Sucesso!");
+            }
+
+            else
+            {
+                MessageBox.Show("Ocorreu um erro ao alterar sua senha. Tente novamente!", "Problemas Técnicos");
             }
         }
     }

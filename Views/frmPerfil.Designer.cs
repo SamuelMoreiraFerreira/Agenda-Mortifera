@@ -38,9 +38,14 @@
             btnRefreshCategorias = new Button();
             dgvUsuarios = new DataGridView();
             btnRefreshUsers = new Button();
+            tbxAlterarSenha = new TextBox();
+            gbxSeguranca = new GroupBox();
+            btnConfirmarSenha = new Button();
+            label1 = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
+            gbxSeguranca.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -91,7 +96,7 @@
             // dgvCategorias
             // 
             dgvCategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCategorias.Location = new Point(418, 131);
+            dgvCategorias.Location = new Point(419, 186);
             dgvCategorias.Name = "dgvCategorias";
             dgvCategorias.ReadOnly = true;
             dgvCategorias.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
@@ -102,7 +107,7 @@
             // 
             // btnRefreshCategorias
             // 
-            btnRefreshCategorias.Location = new Point(418, 320);
+            btnRefreshCategorias.Location = new Point(419, 375);
             btnRefreshCategorias.Name = "btnRefreshCategorias";
             btnRefreshCategorias.Size = new Size(281, 39);
             btnRefreshCategorias.TabIndex = 3;
@@ -132,11 +137,53 @@
             btnRefreshUsers.UseVisualStyleBackColor = true;
             btnRefreshUsers.Click += btnRefreshUsers_Click;
             // 
+            // tbxAlterarSenha
+            // 
+            tbxAlterarSenha.Location = new Point(17, 48);
+            tbxAlterarSenha.Name = "tbxAlterarSenha";
+            tbxAlterarSenha.Size = new Size(205, 23);
+            tbxAlterarSenha.TabIndex = 6;
+            tbxAlterarSenha.TextChanged += tbxAlterarSenha_TextChanged;
+            // 
+            // gbxSeguranca
+            // 
+            gbxSeguranca.Controls.Add(btnConfirmarSenha);
+            gbxSeguranca.Controls.Add(label1);
+            gbxSeguranca.Controls.Add(tbxAlterarSenha);
+            gbxSeguranca.Location = new Point(419, 53);
+            gbxSeguranca.Name = "gbxSeguranca";
+            gbxSeguranca.Size = new Size(238, 116);
+            gbxSeguranca.TabIndex = 7;
+            gbxSeguranca.TabStop = false;
+            gbxSeguranca.Text = "Privacidade e Segurança";
+            // 
+            // btnConfirmarSenha
+            // 
+            btnConfirmarSenha.Enabled = false;
+            btnConfirmarSenha.Location = new Point(17, 78);
+            btnConfirmarSenha.Name = "btnConfirmarSenha";
+            btnConfirmarSenha.Size = new Size(205, 23);
+            btnConfirmarSenha.TabIndex = 8;
+            btnConfirmarSenha.Text = "Confirmar";
+            btnConfirmarSenha.UseVisualStyleBackColor = true;
+            btnConfirmarSenha.Click += btnConfirmarSenha_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(17, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(83, 15);
+            label1.TabIndex = 7;
+            label1.Text = "Alterar Senha";
+            // 
             // frmPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(gbxSeguranca);
             Controls.Add(btnRefreshUsers);
             Controls.Add(dgvUsuarios);
             Controls.Add(btnRefreshCategorias);
@@ -151,6 +198,8 @@
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
+            gbxSeguranca.ResumeLayout(false);
+            gbxSeguranca.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -167,5 +216,9 @@
         private Button btnRefreshCategorias;
         private DataGridView dgvUsuarios;
         private Button btnRefreshUsers;
+        private TextBox tbxAlterarSenha;
+        private GroupBox gbxSeguranca;
+        private Label label1;
+        private Button btnConfirmarSenha;
     }
 }

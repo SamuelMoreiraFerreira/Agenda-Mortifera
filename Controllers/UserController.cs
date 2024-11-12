@@ -172,5 +172,50 @@ namespace AgendaMortifera.Controllers
                 conexao.Close();
             }
         }
+
+        public bool ModifySenha(string usuario, string novaSenha)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdModifySenha = new MySqlCommand(
+                    "UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario",
+                    conexao
+                );
+
+                cmdModifySenha.Parameters.AddWithValue("@usuario", usuario);
+
+                cmdModifySenha.Parameters.AddWithValue("@nova_senha", novaSenha);
+
+                int rowsAffected = 0;
+
+                rowsAffected = cmdModifySenha.ExecuteNonQuery();
+
+                // Sucesso, senha alterada
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+
+                // Erro
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
     }
 }
