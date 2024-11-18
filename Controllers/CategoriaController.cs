@@ -12,7 +12,7 @@ namespace AgendaMortifera.Controllers
 {
     internal class CategoriaController
     { 
-        public bool AddCategoria (string usuario, string categoria)
+        public bool CreateCategoria (string usuario, string categoria)
         {
             MySqlConnection conexao = ConexaoDB.Connection();
 

@@ -61,7 +61,7 @@ namespace AgendaMortifera
         {
             // Cadastrando 
 
-            bool cadastro = new UserController().AddUser(tbxPecado.Text, tbxName.Text, tbxEmail.Text, tbxPhone.Text, tbxPassword.Text);
+            bool cadastro = new UserController().CreateUser(tbxPecado.Text, tbxName.Text, tbxEmail.Text, tbxPhone.Text, tbxPassword.Text);
 
             if (cadastro == true)
             {

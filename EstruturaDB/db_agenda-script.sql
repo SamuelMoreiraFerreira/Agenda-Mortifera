@@ -23,3 +23,10 @@ CREATE TABLE IF NOT EXISTS tb_categorias (
     usuario VARCHAR(20) NOT NULL,
     categoria VARCHAR(100) NOT NULL
 );
+
+-- TRIGGER TABELA DE CATEGORIAS
+
+CREATE TRIGGER tb_categorias_update 
+BEFORE INSERT ON tb_categorias
+FOR EACH ROW 
+SET NEW.data_modificacao = NOW();

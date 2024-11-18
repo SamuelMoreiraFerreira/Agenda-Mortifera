@@ -13,7 +13,39 @@ namespace AgendaMortifera.Controllers
     internal class UserController
     {
 
-        public bool AddUser(string pecado, string nome, string usuario, string telefone, string senha)
+        private bool CreateUserDB(string usuario, string senha)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdCreateUser = new MySqlCommand(
+                   $"CREATE USER '{usuario}'@'%' IDENTIFIED BY '{senha}';",
+                   conexao
+                );
+
+                cmdCreateUser.ExecuteNonQuery();
+
+                // Sucesso, usuário criado na DB
+                return true;
+            }
+
+            // Evitando crash
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool CreateUser(string pecado, string nome, string usuario, string telefone, string senha)
         {
             MySqlConnection conexao = ConexaoDB.Connection();
 
@@ -42,7 +74,7 @@ namespace AgendaMortifera.Controllers
                 rowsAffected = cmdInsertInto.ExecuteNonQuery();
 
                 // Sucesso, usuário inserido
-                if (rowsAffected > 0)
+                if (rowsAffected > 0 && this.CreateUserDB(usuario, senha))
                 {
                     return true;
                 }
@@ -55,8 +87,11 @@ namespace AgendaMortifera.Controllers
             }
 
             // Evitando Crash
-            catch (Exception)
+            catch (Exception err)
             {
+                this.DeleteUser(usuario);
+                MessageBox.Show(err.Message);
+
                 return false;
             }
 

@@ -27,7 +27,7 @@ namespace AgendaMortifera.Views
         {
             // Inserindo Categoria
 
-            bool addCategoria = new CategoriaController().AddCategoria(this.usuario, tbxNomeCategoria.Text);
+            bool addCategoria = new CategoriaController().CreateCategoria(this.usuario, tbxNomeCategoria.Text);
 
             if (addCategoria == true)
             {
