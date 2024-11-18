@@ -19,5 +19,29 @@ namespace AgendaMortifera.Data
 
             return connection;
         }
+
+        public static MySqlConnection Connection(string usuario, string senha)
+        {
+            string token = $"Server=localhost;Database=db_agenda;User ID={usuario};Password={senha};";
+
+            MySqlConnection connection = new MySqlConnection(token);
+
+            try
+            {
+                connection.Open();
+
+                return connection;
+            }
+
+            catch (Exception err)
+            {
+                throw err;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

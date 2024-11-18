@@ -47,7 +47,10 @@ namespace AgendaMortifera
                 frmPerfil screenPerfil = new frmPerfil()
                 {
                     // Atribuindo o usuario da instância
-                    usuario = tbxUser.Text
+                    usuario = tbxUser.Text,
+
+                    // Conexao à DB da instância
+                    conexao = ConexaoDB.Connection(tbxUser.Text, tbxPassword.Text)
                 };
 
                 screenPerfil.ShowDialog();

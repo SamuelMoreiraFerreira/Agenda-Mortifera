@@ -1,4 +1,5 @@
 ﻿using AgendaMortifera.Views;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace AgendaMortifera.Controllers
     {
 
         public required string usuario;
+
+        public required MySqlConnection conexao;
 
         public frmPerfil()
         {

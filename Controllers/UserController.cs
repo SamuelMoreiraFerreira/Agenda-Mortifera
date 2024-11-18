@@ -98,8 +98,6 @@ namespace AgendaMortifera.Controllers
             // Evitando Crash
             catch (Exception)
             {
-                this.DeleteUser(usuario);
-
                 return false;
             }
 
