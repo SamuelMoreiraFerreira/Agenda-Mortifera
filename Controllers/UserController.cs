@@ -22,7 +22,8 @@ namespace AgendaMortifera.Controllers
             try
             {
                 MySqlCommand cmdCreateUser = new MySqlCommand(
-                   $"CREATE USER '{usuario}'@'%' IDENTIFIED BY '{senha}';",
+                   $@"CREATE USER '{usuario}'@'%' IDENTIFIED BY '{senha}';
+                      GRANT SELECT ON db_agenda.tb_categorias TO '{usuario}'@'%';",
                    conexao
                 );
 
@@ -33,9 +34,8 @@ namespace AgendaMortifera.Controllers
             }
 
             // Evitando crash
-            catch (Exception err)
+            catch (Exception)
             {
-                MessageBox.Show(err.Message);
                 return false;
             }
 
@@ -74,9 +74,18 @@ namespace AgendaMortifera.Controllers
                 rowsAffected = cmdInsertInto.ExecuteNonQuery();
 
                 // Sucesso, usuário inserido
-                if (rowsAffected > 0 && this.CreateUserDB(usuario, senha))
+                if (rowsAffected > 0)
                 {
-                    return true;
+                    // Criar usuário na DB
+                    if (this.CreateUserDB(usuario, senha))
+                    {
+                        return true;
+                    }
+
+                    else
+                    {
+                        return false;
+                    }
                 }
 
                 // Erro
@@ -87,10 +96,9 @@ namespace AgendaMortifera.Controllers
             }
 
             // Evitando Crash
-            catch (Exception err)
+            catch (Exception)
             {
                 this.DeleteUser(usuario);
-                MessageBox.Show(err.Message);
 
                 return false;
             }
