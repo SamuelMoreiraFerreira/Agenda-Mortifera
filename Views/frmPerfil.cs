@@ -16,48 +16,19 @@ namespace AgendaMortifera.Controllers
     public partial class frmPerfil : Form
     {
 
-        readonly string usuario = UserSession.Usuario;
-
-        readonly MySqlConnection conexao = UserSession.Conexao;
-
         public frmPerfil()
         {
+            this.AtualizarDgvCategorias(null, null);
+
             InitializeComponent();
         }
 
-        private void AdicionarCategoria(object sender, EventArgs e)
+        private void AtualizarDgvCategorias(object sender, EventArgs e)
         {
-            frmAddCategoria screenAddCategoria = new frmAddCategoria();
-            screenAddCategoria.Show();
+            dgvCategorias.DataSource = new CategoriaController().GetCategorias();
         }
 
-        private void AtualizarDgvCategorias()
-        {
-            dgvCategorias.DataSource = new CategoriaController().GetCategorias(this.usuario);
-        }
-
-        private void AtualizarDgvUsuarios()
-        {
-            dgvUsuarios.DataSource = new UserController().GetUsers();
-        }
-
-        private void frmPerfil_Load(object sender, EventArgs e)
-        {
-            this.AtualizarDgvCategorias();
-            
-            this.AtualizarDgvUsuarios();
-        }
-
-        private void btnRefreshCategorias_Click(object sender, EventArgs e)
-        {
-            this.AtualizarDgvCategorias();
-        }
-
-        private void btnRefreshUsers_Click(object sender, EventArgs e)
-        {
-            this.AtualizarDgvUsuarios();
-        }
-
+        // Validação dos dados para a troca de senha
         private void tbxAlterarSenha_TextChanged(object sender, EventArgs e)
         {
             // Mínimo para a senha é 8 caractéres
@@ -73,33 +44,10 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        // Apagar Categoria
-        private void dgvCategorias_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
-        {
-            // Executa a exclusão para cada linha selecionada no DataGridView
-            foreach (DataGridViewRow selectedRow in dgvCategorias.SelectedRows)
-            {
-                _ = new CategoriaController().DeleteCategoria(selectedRow.Cells["ID"].Value.ToString()!);
-
-                this.AtualizarDgvCategorias();
-            }
-        }
-
-        // Apagar Usuário
-        private void dgvUsuarios_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
-        {
-            foreach (DataGridViewRow selectedRow in dgvUsuarios.SelectedRows)
-            {
-                _ = new UserController().DeleteUser(selectedRow.Cells["User"].Value.ToString()!);
-
-                this.AtualizarDgvUsuarios();
-            }
-        }
-
         // Alterar Senha
         private void btnConfirmarSenha_Click(object sender, EventArgs e)
         {
-            if (new UserController().ModifySenha(this.usuario, tbxAlterarSenha.Text))
+            if (new UserController().ModifySenha(UserSession.Usuario, tbxAlterarSenha.Text))
             {
                 this.Close();
 
@@ -110,6 +58,26 @@ namespace AgendaMortifera.Controllers
             {
                 MessageBox.Show("Ocorreu um erro ao alterar sua senha. Tente novamente!", "Problemas Técnicos");
             }
+        }
+
+        // Adicionar Categoria
+        private void btnAdicionarCategoria_Click(object sender, EventArgs e)
+        {
+            frmAddCategoria screenAddCategoria = new frmAddCategoria();
+
+            screenAddCategoria.ShowDialog();
+        }
+
+        // Editar Categoria
+        private void btnEditarCategoria_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Remover Categoria
+        private void btnExcluirCategoria_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

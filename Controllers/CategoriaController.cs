@@ -7,25 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Data;
+using AgendaMortifera.StructureDB;
 
 namespace AgendaMortifera.Controllers
 {
     internal class CategoriaController
     { 
-        public bool CreateCategoria (string usuario, string categoria)
+        public bool CreateCategoria (string categoria)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
+            MySqlConnection conexao = UserSession.Conexao;
 
             conexao.Open();
 
             try
             {
                 MySqlCommand cmdInsertInto = new MySqlCommand(
-                    "INSERT INTO tb_categorias (usuario, categoria) VALUES (@usuario, @nome_categoria);",
+                    "INSERT INTO tb_categorias (categoria) VALUES (@nome_categoria);",
                     conexao
                 );
-
-                cmdInsertInto.Parameters.AddWithValue("@usuario", usuario);
 
                 cmdInsertInto.Parameters.AddWithValue("@nome_categoria", categoria);
 
@@ -61,7 +60,7 @@ namespace AgendaMortifera.Controllers
 
         public bool DeleteCategoria (string idCategoria)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
+            MySqlConnection conexao = UserSession.Conexao;
 
             conexao.Open();
 
@@ -104,10 +103,10 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        public DataTable GetCategorias (string usuario)
+        public DataTable GetCategorias ()
         {
 
-            MySqlConnection conexao = ConexaoDB.Connection();
+            MySqlConnection conexao = UserSession.Conexao;
 
             conexao.Open();
 
@@ -116,11 +115,9 @@ namespace AgendaMortifera.Controllers
 
                 // Ponte entre a aplicação e a database, permite trabalhar com dados em memória (MySqlDataAdapter)
                 MySqlDataAdapter adpGetCategorias = new MySqlDataAdapter(
-                    "SELECT id_categoria AS 'ID', categoria AS 'Categoria' FROM tb_categorias WHERE tb_categorias.usuario = @usuario;",
+                    "SELECT id_categoria AS 'ID', categoria AS 'Categoria' FROM tb_categorias WHERE tb_categorias.usuario = SUBSTRING_INDEX(USER(), '@', 1);",
                     conexao
                 );
-
-                adpGetCategorias.SelectCommand.Parameters.AddWithValue("@usuario", usuario);
 
                 // Cria uma tabela vazia
                 DataTable tabela = new DataTable();

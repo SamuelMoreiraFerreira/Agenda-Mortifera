@@ -36,13 +36,13 @@ CREATE TABLE IF NOT EXISTS tb_categorias (
 
 DELIMITER $$
 
-CREATE TRIGGER IF NOT EXISTS trInsertCategoria
+CREATE TRIGGER trInsertCategoria
     BEFORE
     INSERT
     ON tb_categorias
     FOR EACH ROW
 BEGIN
-    SET NEW.usuario = CURRENT_USER();
+    SET NEW.usuario = SUBSTRING_INDEX(USER(), '@', 1);
 END;
 
 $$

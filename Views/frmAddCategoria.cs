@@ -1,5 +1,6 @@
 ﻿using AgendaMortifera.Controllers;
 using AgendaMortifera.Data;
+using AgendaMortifera.StructureDB;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,6 @@ namespace AgendaMortifera.Views
     public partial class frmAddCategoria : Form
     {
 
-        public string usuario;
-
         public frmAddCategoria()
         {
             InitializeComponent();
@@ -27,9 +26,9 @@ namespace AgendaMortifera.Views
         {
             // Inserindo Categoria
 
-            bool addCategoria = new CategoriaController().CreateCategoria(this.usuario, tbxNomeCategoria.Text);
+            bool addCategoria = new CategoriaController().CreateCategoria(tbxNomeCategoria.Text);
 
-            if (addCategoria == true)
+            if (addCategoria)
             {
 
                 this.Close();

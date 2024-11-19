@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Data;
+using AgendaMortifera.StructureDB;
 
 namespace AgendaMortifera.Controllers
 {
@@ -17,10 +18,10 @@ namespace AgendaMortifera.Controllers
         {
             MySqlConnection conexao = ConexaoDB.Connection();
 
-            conexao.Open();
-
             try
             {
+                conexao.Open();
+
                 MySqlCommand cmdCreateUser = new MySqlCommand(
                    $@"CREATE USER '{usuario}'@'%' IDENTIFIED BY '{senha}';
                       GRANT SELECT ON db_agenda.tb_categorias TO '{usuario}'@'%';",
@@ -49,10 +50,10 @@ namespace AgendaMortifera.Controllers
         {
             MySqlConnection conexao = ConexaoDB.Connection();
 
-            conexao.Open();
-
             try
             {
+                conexao.Open();
+
                 MySqlCommand cmdInsertInto = new MySqlCommand(
                     "INSERT INTO tb_usuarios VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
                     conexao
@@ -113,10 +114,10 @@ namespace AgendaMortifera.Controllers
         {
             MySqlConnection conexao = ConexaoDB.Connection();
 
-            conexao.Open();
-
             try
             {
+                conexao.Open();
+
                 MySqlCommand cmdDeleteUserDB = new MySqlCommand(
                     $"DROP USER '{usuario}'@'%';",
                     conexao
@@ -144,10 +145,10 @@ namespace AgendaMortifera.Controllers
         {
             MySqlConnection conexao = ConexaoDB.Connection();
 
-            conexao.Open();
-
             try
             {
+                conexao.Open();
+
                 MySqlCommand cmdDeleteUser = new MySqlCommand(
                     "DELETE FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
                     conexao
@@ -182,12 +183,12 @@ namespace AgendaMortifera.Controllers
 
         private bool ModifySenhaDB(string usuario, string novaSenha)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            conexao.Open();
+            MySqlConnection conexao = UserSession.Conexao;
 
             try
             {
+                conexao.Open();
+
                 MySqlCommand cmdModifySenhaDB = new MySqlCommand(
                     $"ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'",
                     conexao
@@ -212,12 +213,12 @@ namespace AgendaMortifera.Controllers
 
         public bool ModifySenha(string usuario, string novaSenha)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            conexao.Open();
+            MySqlConnection conexao = UserSession.Conexao;
 
             try
             {
+                conexao.Open();
+
                 MySqlCommand cmdModifySenha = new MySqlCommand(
                     "UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario",
                     conexao
@@ -259,10 +260,10 @@ namespace AgendaMortifera.Controllers
 
         public bool UserExists(string usuario, string senha)
         {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
             try
             {
-                MySqlConnection conexao = ConexaoDB.Connection();
-
                 conexao.Open();
 
                 MySqlCommand cmdVerificacao = new MySqlCommand(
@@ -277,47 +278,12 @@ namespace AgendaMortifera.Controllers
                 // O comando retornará algum valor (ExecuteReader)
                 bool returnValue = cmdVerificacao.ExecuteReader().Read();
 
-                conexao.Close();
-
                 return returnValue;
             }
 
             catch (Exception)
             {
                 return false;
-            }
-        }
-
-        public MySqlDataReader? GetUser(string usuario)
-        {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            conexao.Open();
-
-            try
-            {
-                MySqlCommand cmdGetUser = new MySqlCommand(
-                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = '@usuario';",
-                    conexao
-                );
-
-                MySqlDataReader GetUserResult = cmdGetUser.ExecuteReader();
-
-                if (GetUserResult.Read())
-                {
-                    return GetUserResult;
-                }
-
-                else
-                {
-                    return null;
-                }
-            }
-
-            // Evitando Crash
-            catch (Exception)
-            {
-                return null;
             }
 
             finally

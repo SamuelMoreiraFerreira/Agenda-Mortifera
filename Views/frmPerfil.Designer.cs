@@ -28,114 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            menuStrip1 = new MenuStrip();
-            editarToolStripMenuItem = new ToolStripMenuItem();
-            categoriasToolStripMenuItem = new ToolStripMenuItem();
-            adicionarToolStripMenuItem = new ToolStripMenuItem();
-            removerToolStripMenuItem = new ToolStripMenuItem();
-            lblUsuario = new Label();
             dgvCategorias = new DataGridView();
             btnRefreshCategorias = new Button();
-            dgvUsuarios = new DataGridView();
-            btnRefreshUsers = new Button();
             tbxAlterarSenha = new TextBox();
             gbxSeguranca = new GroupBox();
             btnConfirmarSenha = new Button();
             label1 = new Label();
-            menuStrip1.SuspendLayout();
+            btnAdicionarCategoria = new Button();
+            btnEditarCategoria = new Button();
+            btnExcluirCategoria = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
             gbxSeguranca.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { editarToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // editarToolStripMenuItem
-            // 
-            editarToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { categoriasToolStripMenuItem });
-            editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            editarToolStripMenuItem.Size = new Size(49, 20);
-            editarToolStripMenuItem.Text = "Editar";
-            // 
-            // categoriasToolStripMenuItem
-            // 
-            categoriasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { adicionarToolStripMenuItem, removerToolStripMenuItem });
-            categoriasToolStripMenuItem.Name = "categoriasToolStripMenuItem";
-            categoriasToolStripMenuItem.Size = new Size(130, 22);
-            categoriasToolStripMenuItem.Text = "Categorias";
-            // 
-            // adicionarToolStripMenuItem
-            // 
-            adicionarToolStripMenuItem.Name = "adicionarToolStripMenuItem";
-            adicionarToolStripMenuItem.Size = new Size(125, 22);
-            adicionarToolStripMenuItem.Text = "Adicionar";
-            adicionarToolStripMenuItem.Click += AdicionarCategoria;
-            // 
-            // removerToolStripMenuItem
-            // 
-            removerToolStripMenuItem.Name = "removerToolStripMenuItem";
-            removerToolStripMenuItem.Size = new Size(125, 22);
-            removerToolStripMenuItem.Text = "Remover";
-            // 
-            // lblUsuario
-            // 
-            lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(82, 100);
-            lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(165, 15);
-            lblUsuario.TabIndex = 1;
-            lblUsuario.Text = "ESQUECI AQUI... NÃO MEXER!";
-            // 
             // dgvCategorias
             // 
-            dgvCategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCategorias.Location = new Point(419, 186);
+            dgvCategorias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCategorias.ColumnHeadersHeight = 25;
+            dgvCategorias.Location = new Point(12, 57);
             dgvCategorias.Name = "dgvCategorias";
             dgvCategorias.ReadOnly = true;
-            dgvCategorias.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dgvCategorias.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dgvCategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCategorias.Size = new Size(281, 183);
             dgvCategorias.TabIndex = 2;
-            dgvCategorias.UserDeletingRow += dgvCategorias_UserDeletingRow;
             // 
             // btnRefreshCategorias
             // 
-            btnRefreshCategorias.Location = new Point(419, 375);
+            btnRefreshCategorias.Location = new Point(12, 12);
             btnRefreshCategorias.Name = "btnRefreshCategorias";
             btnRefreshCategorias.Size = new Size(281, 39);
             btnRefreshCategorias.TabIndex = 3;
             btnRefreshCategorias.Text = "Atualizar";
             btnRefreshCategorias.UseVisualStyleBackColor = true;
-            btnRefreshCategorias.Click += btnRefreshCategorias_Click;
-            // 
-            // dgvUsuarios
-            // 
-            dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsuarios.Location = new Point(31, 131);
-            dgvUsuarios.Name = "dgvUsuarios";
-            dgvUsuarios.ReadOnly = true;
-            dgvUsuarios.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsuarios.Size = new Size(281, 183);
-            dgvUsuarios.TabIndex = 4;
-            dgvUsuarios.UserDeletingRow += dgvUsuarios_UserDeletingRow;
-            // 
-            // btnRefreshUsers
-            // 
-            btnRefreshUsers.Location = new Point(31, 320);
-            btnRefreshUsers.Name = "btnRefreshUsers";
-            btnRefreshUsers.Size = new Size(281, 39);
-            btnRefreshUsers.TabIndex = 5;
-            btnRefreshUsers.Text = "Atualizar";
-            btnRefreshUsers.UseVisualStyleBackColor = true;
-            btnRefreshUsers.Click += btnRefreshUsers_Click;
+            btnRefreshCategorias.Click += AtualizarDgvCategorias;
             // 
             // tbxAlterarSenha
             // 
@@ -150,7 +76,7 @@
             gbxSeguranca.Controls.Add(btnConfirmarSenha);
             gbxSeguranca.Controls.Add(label1);
             gbxSeguranca.Controls.Add(tbxAlterarSenha);
-            gbxSeguranca.Location = new Point(419, 53);
+            gbxSeguranca.Location = new Point(550, 12);
             gbxSeguranca.Name = "gbxSeguranca";
             gbxSeguranca.Size = new Size(238, 116);
             gbxSeguranca.TabIndex = 7;
@@ -178,48 +104,67 @@
             label1.TabIndex = 7;
             label1.Text = "Alterar Senha";
             // 
+            // btnAdicionarCategoria
+            // 
+            btnAdicionarCategoria.Location = new Point(12, 246);
+            btnAdicionarCategoria.Name = "btnAdicionarCategoria";
+            btnAdicionarCategoria.Size = new Size(89, 89);
+            btnAdicionarCategoria.TabIndex = 8;
+            btnAdicionarCategoria.Text = "ADD";
+            btnAdicionarCategoria.UseVisualStyleBackColor = true;
+            btnAdicionarCategoria.Click += btnAdicionarCategoria_Click;
+            // 
+            // btnEditarCategoria
+            // 
+            btnEditarCategoria.Location = new Point(107, 246);
+            btnEditarCategoria.Name = "btnEditarCategoria";
+            btnEditarCategoria.Size = new Size(89, 89);
+            btnEditarCategoria.TabIndex = 9;
+            btnEditarCategoria.Text = "EDITAR";
+            btnEditarCategoria.UseVisualStyleBackColor = true;
+            btnEditarCategoria.Click += btnEditarCategoria_Click;
+            // 
+            // btnExcluirCategoria
+            // 
+            btnExcluirCategoria.Location = new Point(204, 246);
+            btnExcluirCategoria.Name = "btnExcluirCategoria";
+            btnExcluirCategoria.Size = new Size(89, 89);
+            btnExcluirCategoria.TabIndex = 10;
+            btnExcluirCategoria.Text = "EXCLUIR";
+            btnExcluirCategoria.UseVisualStyleBackColor = true;
+            btnExcluirCategoria.Click += btnExcluirCategoria_Click;
+            // 
             // frmPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 349);
+            Controls.Add(btnExcluirCategoria);
+            Controls.Add(btnEditarCategoria);
+            Controls.Add(btnAdicionarCategoria);
             Controls.Add(gbxSeguranca);
-            Controls.Add(btnRefreshUsers);
-            Controls.Add(dgvUsuarios);
             Controls.Add(btnRefreshCategorias);
             Controls.Add(dgvCategorias);
-            Controls.Add(lblUsuario);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "frmPerfil";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";
-            Load += frmPerfil_Load;
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
             gbxSeguranca.ResumeLayout(false);
             gbxSeguranca.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem editarToolStripMenuItem;
-        private ToolStripMenuItem categoriasToolStripMenuItem;
-        private ToolStripMenuItem adicionarToolStripMenuItem;
-        private ToolStripMenuItem removerToolStripMenuItem;
-        private Label lblUsuario;
         private DataGridView dgvCategorias;
         private Button btnRefreshCategorias;
-        private DataGridView dgvUsuarios;
-        private Button btnRefreshUsers;
         private TextBox tbxAlterarSenha;
         private GroupBox gbxSeguranca;
         private Label label1;
         private Button btnConfirmarSenha;
+        private Button btnAdicionarCategoria;
+        private Button btnEditarCategoria;
+        private Button btnExcluirCategoria;
     }
 }
