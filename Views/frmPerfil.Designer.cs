@@ -192,6 +192,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "frmPerfil";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";
             Load += frmPerfil_Load;
             menuStrip1.ResumeLayout(false);

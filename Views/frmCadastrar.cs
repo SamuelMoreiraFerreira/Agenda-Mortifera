@@ -33,11 +33,9 @@ namespace AgendaMortifera
 
                 tbxName.Text != ""
 
-                && tbxEmail.Text != ""
+                && tbxUsuario.Text != ""
 
-                && tbxPhone.Text != ""
-
-                && tbxPecado.Text != ""
+                && cbxPecado.Text != ""
 
                 && tbxPassword.Text.Length >= 8
 
@@ -61,9 +59,9 @@ namespace AgendaMortifera
         {
             // Cadastrando 
 
-            bool cadastro = new UserController().CreateUser(tbxPecado.Text, tbxName.Text, tbxEmail.Text, tbxPhone.Text, tbxPassword.Text);
+            bool cadastro = new UserController().CreateUser(cbxPecado.Text, tbxName.Text, tbxUsuario.Text, tbxPassword.Text, tbxPhone.Text);
 
-            if (cadastro == true)
+            if (cadastro)
             {
                 this.Close();
 

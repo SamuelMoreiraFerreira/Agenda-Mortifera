@@ -33,9 +33,9 @@ namespace AgendaMortifera.Data
                 return connection;
             }
 
-            catch (Exception err)
+            catch (Exception)
             {
-                throw err;
+                throw;
             }
 
             finally

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCadastrar));
-            lblEmail = new Label();
-            tbxEmail = new TextBox();
+            lblUsuario = new Label();
+            tbxUsuario = new TextBox();
             lblName = new Label();
             tbxName = new TextBox();
             lblPecado = new Label();
@@ -47,48 +47,48 @@
             tbxRPassword = new TextBox();
             gbxPessoal = new GroupBox();
             gbxSeguranca = new GroupBox();
+            cbxPecado = new ComboBox();
             gbxPessoal.SuspendLayout();
             gbxSeguranca.SuspendLayout();
             SuspendLayout();
             // 
-            // lblEmail
+            // lblUsuario
             // 
-            lblEmail.AutoSize = true;
-            lblEmail.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblEmail.Location = new Point(33, 169);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(87, 32);
-            lblEmail.TabIndex = 16;
-            lblEmail.Text = "E-Mail";
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            lblUsuario.Location = new Point(29, 127);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(81, 25);
+            lblUsuario.TabIndex = 16;
+            lblUsuario.Text = "Usuário";
             // 
-            // tbxEmail
+            // tbxUsuario
             // 
-            tbxEmail.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxEmail.Location = new Point(33, 219);
-            tbxEmail.Margin = new Padding(3, 4, 3, 4);
-            tbxEmail.Name = "tbxEmail";
-            tbxEmail.PlaceholderText = "alma_penada@dominio.com";
-            tbxEmail.Size = new Size(354, 42);
-            tbxEmail.TabIndex = 15;
-            tbxEmail.TextChanged += tbx_TextChanged;
+            tbxUsuario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxUsuario.Location = new Point(29, 164);
+            tbxUsuario.Name = "tbxUsuario";
+            tbxUsuario.PlaceholderText = "Ex. NoobMaster69";
+            tbxUsuario.Size = new Size(310, 35);
+            tbxUsuario.TabIndex = 15;
+            tbxUsuario.TextChanged += tbx_TextChanged;
             // 
             // lblName
             // 
             lblName.AutoSize = true;
             lblName.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblName.Location = new Point(33, 56);
+            lblName.Location = new Point(29, 42);
             lblName.Name = "lblName";
-            lblName.Size = new Size(83, 32);
+            lblName.Size = new Size(66, 25);
             lblName.TabIndex = 14;
             lblName.Text = "Nome";
             // 
             // tbxName
             // 
             tbxName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxName.Location = new Point(33, 105);
-            tbxName.Margin = new Padding(3, 4, 3, 4);
+            tbxName.Location = new Point(29, 79);
             tbxName.Name = "tbxName";
-            tbxName.Size = new Size(354, 42);
+            tbxName.PlaceholderText = "Ex. Zenon Parelli Bergamo";
+            tbxName.Size = new Size(310, 35);
             tbxName.TabIndex = 13;
             tbxName.TextChanged += tbx_TextChanged;
             // 
@@ -97,9 +97,9 @@
             lblPecado.AutoSize = true;
             lblPecado.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPecado.ForeColor = Color.IndianRed;
-            lblPecado.Location = new Point(435, 112);
+            lblPecado.Location = new Point(381, 84);
             lblPecado.Name = "lblPecado";
-            lblPecado.Size = new Size(112, 32);
+            lblPecado.Size = new Size(89, 25);
             lblPecado.TabIndex = 20;
             lblPecado.Text = "PECADO";
             // 
@@ -109,10 +109,9 @@
             tbxPecado.BorderStyle = BorderStyle.FixedSingle;
             tbxPecado.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tbxPecado.ForeColor = Color.White;
-            tbxPecado.Location = new Point(267, 163);
-            tbxPecado.Margin = new Padding(3, 4, 3, 4);
+            tbxPecado.Location = new Point(234, 122);
             tbxPecado.Name = "tbxPecado";
-            tbxPecado.Size = new Size(427, 42);
+            tbxPecado.Size = new Size(374, 35);
             tbxPecado.TabIndex = 19;
             tbxPecado.TextAlign = HorizontalAlignment.Center;
             tbxPecado.TextChanged += tbx_TextChanged;
@@ -121,20 +120,19 @@
             // 
             lblPhone.AutoSize = true;
             lblPhone.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblPhone.Location = new Point(33, 285);
+            lblPhone.Location = new Point(29, 214);
             lblPhone.Name = "lblPhone";
-            lblPhone.Size = new Size(111, 32);
+            lblPhone.Size = new Size(87, 25);
             lblPhone.TabIndex = 18;
             lblPhone.Text = "Telefone";
             // 
             // tbxPhone
             // 
             tbxPhone.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxPhone.Location = new Point(33, 335);
-            tbxPhone.Margin = new Padding(3, 4, 3, 4);
+            tbxPhone.Location = new Point(29, 251);
             tbxPhone.Name = "tbxPhone";
             tbxPhone.PlaceholderText = "(DDD) 777-666";
-            tbxPhone.Size = new Size(354, 42);
+            tbxPhone.Size = new Size(310, 35);
             tbxPhone.TabIndex = 17;
             tbxPhone.TextChanged += tbx_TextChanged;
             // 
@@ -142,20 +140,19 @@
             // 
             lblPassword.AutoSize = true;
             lblPassword.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblPassword.Location = new Point(33, 61);
+            lblPassword.Location = new Point(29, 46);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(82, 32);
+            lblPassword.Size = new Size(66, 25);
             lblPassword.TabIndex = 22;
             lblPassword.Text = "Senha";
             // 
             // tbxPassword
             // 
             tbxPassword.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxPassword.Location = new Point(33, 111);
-            tbxPassword.Margin = new Padding(3, 4, 3, 4);
+            tbxPassword.Location = new Point(29, 83);
             tbxPassword.Name = "tbxPassword";
             tbxPassword.PasswordChar = '*';
-            tbxPassword.Size = new Size(354, 42);
+            tbxPassword.Size = new Size(310, 35);
             tbxPassword.TabIndex = 21;
             tbxPassword.TextChanged += tbx_TextChanged;
             // 
@@ -165,10 +162,9 @@
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnCancel.ForeColor = Color.Black;
-            btnCancel.Location = new Point(763, 824);
-            btnCancel.Margin = new Padding(3, 4, 3, 4);
+            btnCancel.Location = new Point(668, 618);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(170, 80);
+            btnCancel.Size = new Size(149, 60);
             btnCancel.TabIndex = 24;
             btnCancel.Text = "CANCELAR";
             btnCancel.UseVisualStyleBackColor = false;
@@ -181,10 +177,9 @@
             btnSign.FlatStyle = FlatStyle.Flat;
             btnSign.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnSign.ForeColor = Color.White;
-            btnSign.Location = new Point(53, 709);
-            btnSign.Margin = new Padding(3, 4, 3, 4);
+            btnSign.Location = new Point(46, 532);
             btnSign.Name = "btnSign";
-            btnSign.Size = new Size(881, 80);
+            btnSign.Size = new Size(771, 60);
             btnSign.TabIndex = 23;
             btnSign.Text = "CADASTRAR";
             btnSign.UseVisualStyleBackColor = false;
@@ -194,9 +189,9 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(303, 32);
+            lblTitle.Location = new Point(265, 24);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(229, 46);
+            lblTitle.Size = new Size(184, 37);
             lblTitle.TabIndex = 25;
             lblTitle.Text = "Bem-vindo ao";
             // 
@@ -205,9 +200,9 @@
             lblErebro.AutoSize = true;
             lblErebro.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblErebro.ForeColor = Color.IndianRed;
-            lblErebro.Location = new Point(523, 32);
+            lblErebro.Location = new Point(458, 24);
             lblErebro.Name = "lblErebro";
-            lblErebro.Size = new Size(148, 46);
+            lblErebro.Size = new Size(118, 37);
             lblErebro.TabIndex = 26;
             lblErebro.Text = "ÉREBRO";
             // 
@@ -215,37 +210,34 @@
             // 
             lblRPassword.AutoSize = true;
             lblRPassword.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblRPassword.Location = new Point(33, 177);
+            lblRPassword.Location = new Point(29, 133);
             lblRPassword.Name = "lblRPassword";
-            lblRPassword.Size = new Size(259, 32);
+            lblRPassword.Size = new Size(201, 25);
             lblRPassword.TabIndex = 28;
             lblRPassword.Text = "Confirme a sua senha";
             // 
             // tbxRPassword
             // 
             tbxRPassword.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxRPassword.Location = new Point(33, 227);
-            tbxRPassword.Margin = new Padding(3, 4, 3, 4);
+            tbxRPassword.Location = new Point(29, 170);
             tbxRPassword.Name = "tbxRPassword";
             tbxRPassword.PasswordChar = '*';
-            tbxRPassword.Size = new Size(354, 42);
+            tbxRPassword.Size = new Size(310, 35);
             tbxRPassword.TabIndex = 27;
             tbxRPassword.TextChanged += tbx_TextChanged;
             // 
             // gbxPessoal
             // 
-            gbxPessoal.Controls.Add(tbxEmail);
+            gbxPessoal.Controls.Add(tbxUsuario);
             gbxPessoal.Controls.Add(tbxName);
             gbxPessoal.Controls.Add(lblName);
-            gbxPessoal.Controls.Add(lblEmail);
+            gbxPessoal.Controls.Add(lblUsuario);
             gbxPessoal.Controls.Add(tbxPhone);
             gbxPessoal.Controls.Add(lblPhone);
             gbxPessoal.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gbxPessoal.Location = new Point(53, 247);
-            gbxPessoal.Margin = new Padding(3, 4, 3, 4);
+            gbxPessoal.Location = new Point(46, 185);
             gbxPessoal.Name = "gbxPessoal";
-            gbxPessoal.Padding = new Padding(3, 4, 3, 4);
-            gbxPessoal.Size = new Size(427, 437);
+            gbxPessoal.Size = new Size(374, 328);
             gbxPessoal.TabIndex = 29;
             gbxPessoal.TabStop = false;
             gbxPessoal.Text = "Informações Pessoais";
@@ -257,20 +249,31 @@
             gbxSeguranca.Controls.Add(lblRPassword);
             gbxSeguranca.Controls.Add(lblPassword);
             gbxSeguranca.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gbxSeguranca.Location = new Point(506, 247);
-            gbxSeguranca.Margin = new Padding(3, 4, 3, 4);
+            gbxSeguranca.Location = new Point(443, 185);
             gbxSeguranca.Name = "gbxSeguranca";
-            gbxSeguranca.Padding = new Padding(3, 4, 3, 4);
-            gbxSeguranca.Size = new Size(427, 323);
+            gbxSeguranca.Size = new Size(374, 242);
             gbxSeguranca.TabIndex = 30;
             gbxSeguranca.TabStop = false;
             gbxSeguranca.Text = "Segurança";
             // 
+            // cbxPecado
+            // 
+            cbxPecado.BackColor = Color.IndianRed;
+            cbxPecado.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbxPecado.ForeColor = Color.White;
+            cbxPecado.FormattingEnabled = true;
+            cbxPecado.Items.AddRange(new object[] { "Inveja", "Soberba", "Preguiça", "Ira", "Luxúria", "Avareza", "Gula" });
+            cbxPecado.Location = new Point(234, 122);
+            cbxPecado.Name = "cbxPecado";
+            cbxPecado.Size = new Size(374, 38);
+            cbxPecado.TabIndex = 31;
+            // 
             // frmCadastrar
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(985, 957);
+            ClientSize = new Size(862, 718);
+            Controls.Add(cbxPecado);
             Controls.Add(gbxSeguranca);
             Controls.Add(gbxPessoal);
             Controls.Add(lblErebro);
@@ -281,7 +284,6 @@
             Controls.Add(tbxPecado);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "frmCadastrar";
             StartPosition = FormStartPosition.CenterScreen;
@@ -296,8 +298,8 @@
 
         #endregion
 
-        private Label lblEmail;
-        private TextBox tbxEmail;
+        private Label lblUsuario;
+        private TextBox tbxUsuario;
         private Label lblName;
         private TextBox tbxName;
         private Label lblPecado;
@@ -314,5 +316,6 @@
         private TextBox tbxRPassword;
         private GroupBox gbxPessoal;
         private GroupBox gbxSeguranca;
+        private ComboBox cbxPecado;
     }
 }

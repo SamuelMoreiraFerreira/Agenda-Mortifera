@@ -45,7 +45,7 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        public bool CreateUser(string pecado, string nome, string usuario, string telefone, string senha)
+        public bool CreateUser(string pecado, string nome, string usuario, string senha, string telefone)
         {
             MySqlConnection conexao = ConexaoDB.Connection();
 
@@ -84,6 +84,8 @@ namespace AgendaMortifera.Controllers
 
                     else
                     {
+                        this.DeleteUser(usuario);
+
                         return false;
                     }
                 }
@@ -93,6 +95,37 @@ namespace AgendaMortifera.Controllers
                 {
                     return false;
                 }
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private bool DeleteUserDB(string usuario)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdDeleteUserDB = new MySqlCommand(
+                    $"DROP USER '{usuario}'@'%';",
+                    conexao
+                );
+
+                cmdDeleteUserDB.ExecuteNonQuery();
+
+                // Sucesso, usuário deletado na DB
+                return true;
             }
 
             // Evitando Crash
@@ -122,13 +155,87 @@ namespace AgendaMortifera.Controllers
 
                 cmdDeleteUser.Parameters.AddWithValue("@usuario", usuario);
 
+                if (this.DeleteUserDB(usuario))
+                {
+                    cmdDeleteUser.ExecuteNonQuery();
+
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private bool ModifySenhaDB(string usuario, string novaSenha)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdModifySenhaDB = new MySqlCommand(
+                    $"ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'",
+                    conexao
+                );
+
+                cmdModifySenhaDB.ExecuteNonQuery();
+
+                // Sucesso, senha alterada na DB
+                return true;
+            }
+
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool ModifySenha(string usuario, string novaSenha)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdModifySenha = new MySqlCommand(
+                    "UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario",
+                    conexao
+                );
+
+                cmdModifySenha.Parameters.AddWithValue("@usuario", usuario);
+
+                cmdModifySenha.Parameters.AddWithValue("@nova_senha", novaSenha);
+
                 int rowsAffected = 0;
 
-                rowsAffected = cmdDeleteUser.ExecuteNonQuery();
+                rowsAffected = cmdModifySenha.ExecuteNonQuery();
 
-                // Sucesso, usuário deletado
+                // Sucesso, senha alterada
                 if (rowsAffected > 0)
                 {
+                    this.ModifySenhaDB(usuario, novaSenha);
+
                     return true;
                 }
 
@@ -139,7 +246,6 @@ namespace AgendaMortifera.Controllers
                 }
             }
 
-            // Evitando Crash
             catch (Exception)
             {
                 return false;
@@ -182,6 +288,44 @@ namespace AgendaMortifera.Controllers
             }
         }
 
+        public MySqlDataReader? GetUser(string usuario)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdGetUser = new MySqlCommand(
+                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = '@usuario';",
+                    conexao
+                );
+
+                MySqlDataReader GetUserResult = cmdGetUser.ExecuteReader();
+
+                if (GetUserResult.Read())
+                {
+                    return GetUserResult;
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return null;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
         public DataTable GetUsers()
         {
             MySqlConnection conexao = ConexaoDB.Connection();
@@ -206,51 +350,6 @@ namespace AgendaMortifera.Controllers
             catch (Exception)
             {
                 return new DataTable();
-            }
-
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
-        public bool ModifySenha(string usuario, string novaSenha)
-        {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            conexao.Open();
-
-            try
-            {
-                MySqlCommand cmdModifySenha = new MySqlCommand(
-                    "UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario",
-                    conexao
-                );
-
-                cmdModifySenha.Parameters.AddWithValue("@usuario", usuario);
-
-                cmdModifySenha.Parameters.AddWithValue("@nova_senha", novaSenha);
-
-                int rowsAffected = 0;
-
-                rowsAffected = cmdModifySenha.ExecuteNonQuery();
-
-                // Sucesso, senha alterada
-                if (rowsAffected > 0)
-                {
-                    return true;
-                }
-
-                // Erro
-                else
-                {
-                    return false;
-                }
-            }
-
-            catch (Exception)
-            {
-                return false;
             }
 
             finally

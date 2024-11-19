@@ -1,4 +1,5 @@
-﻿using AgendaMortifera.Views;
+﻿using AgendaMortifera.StructureDB;
+using AgendaMortifera.Views;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace AgendaMortifera.Controllers
     public partial class frmPerfil : Form
     {
 
-        public required string usuario;
+        readonly string usuario = UserSession.Usuario;
 
-        public required MySqlConnection conexao;
+        readonly MySqlConnection conexao = UserSession.Conexao;
 
         public frmPerfil()
         {
@@ -26,11 +27,7 @@ namespace AgendaMortifera.Controllers
 
         private void AdicionarCategoria(object sender, EventArgs e)
         {
-            frmAddCategoria screenAddCategoria = new frmAddCategoria
-            {
-                usuario = this.usuario
-            };
-
+            frmAddCategoria screenAddCategoria = new frmAddCategoria();
             screenAddCategoria.Show();
         }
 
@@ -83,6 +80,8 @@ namespace AgendaMortifera.Controllers
             foreach (DataGridViewRow selectedRow in dgvCategorias.SelectedRows)
             {
                 _ = new CategoriaController().DeleteCategoria(selectedRow.Cells["ID"].Value.ToString()!);
+
+                this.AtualizarDgvCategorias();
             }
         }
 
@@ -92,6 +91,8 @@ namespace AgendaMortifera.Controllers
             foreach (DataGridViewRow selectedRow in dgvUsuarios.SelectedRows)
             {
                 _ = new UserController().DeleteUser(selectedRow.Cells["User"].Value.ToString()!);
+
+                this.AtualizarDgvUsuarios();
             }
         }
 

@@ -1,5 +1,6 @@
 using AgendaMortifera.Controllers;
 using AgendaMortifera.Data;
+using AgendaMortifera.StructureDB;
 using MySql.Data.MySqlClient;
 using System.Xml.Linq;
 
@@ -38,22 +39,19 @@ namespace AgendaMortifera
         {
             UserController userController = new UserController();
 
-            bool retornoVerificacao = userController.UserExists(tbxUser.Text, tbxPassword.Text);
-
-            if (retornoVerificacao == true)
+            if (userController.UserExists(tbxUser.Text, tbxPassword.Text))
             {
-                // O usuário está autenticado
+                UserSession.Usuario = tbxUser.Text;
 
-                frmPerfil screenPerfil = new frmPerfil()
-                {
-                    // Atribuindo o usuario da instância
-                    usuario = tbxUser.Text,
+                UserSession.Conexao = ConexaoDB.Connection(tbxUser.Text, tbxPassword.Text);
 
-                    // Conexao à DB da instância
-                    conexao = ConexaoDB.Connection(tbxUser.Text, tbxPassword.Text)
-                };
+                frmPerfil screenPerfil = new frmPerfil();
+
+                this.Hide();
 
                 screenPerfil.ShowDialog();
+
+                this.Close();
             }
 
             else
