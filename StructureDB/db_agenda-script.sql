@@ -186,7 +186,7 @@ DELIMITER $$
 
 CREATE TRIGGER tr_log_update_categoria
     AFTER
-    DELETE
+    UPDATE
     ON tb_categorias
     FOR EACH ROW
 BEGIN
