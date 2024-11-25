@@ -75,10 +75,55 @@ namespace AgendaMortifera.Controllers
 
                 int rowsAffected = 0;
 
-                // Retornará a quantidade de linhas afetadas (ExecuteNonQuery)
                 rowsAffected = cmdDelete.ExecuteNonQuery();
 
                 // Sucesso, categoria excluida
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+
+                // Erro
+                else
+                {
+                    return false;
+                }
+            }
+
+            // Evitando Crash
+            catch (Exception)
+            {
+                return false;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool RenameCategoria(string idCategoria, string novoNome)
+        {
+            MySqlConnection conexao = UserSession.Conexao;
+
+            conexao.Open();
+
+            try
+            {
+                MySqlCommand cmdUpdateNome = new MySqlCommand(
+                    "UPDATE tb_categorias.categoria = @novo_nome ON tb_categorias WHERE tb_categorias.id_categoria = @id_categoria",
+                    conexao
+                );
+
+                cmdUpdateNome.Parameters.AddWithValue("@novo_nome", novoNome);
+
+                cmdUpdateNome.Parameters.AddWithValue("@id_categoria", idCategoria);
+
+                int rowsAffected = 0;
+
+                rowsAffected = cmdUpdateNome.ExecuteNonQuery();
+
+                // Sucesso, nome da categoria alterado
                 if (rowsAffected > 0)
                 {
                     return true;
