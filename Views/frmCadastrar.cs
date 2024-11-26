@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AgendaMortifera.Controllers;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +14,7 @@ namespace AgendaMortifera
 {
     public partial class frmCadastrar : Form
     {
+
         public frmCadastrar()
         {
             InitializeComponent();
@@ -30,11 +33,11 @@ namespace AgendaMortifera
 
                 tbxName.Text != ""
 
-                && tbxEmail.Text != ""
+                && tbxUsuario.Text != ""
 
-                && tbxPecado.Text != ""
+                && cbxPecado.Text != ""
 
-                && tbxPassword.Text.Length > 8
+                && tbxPassword.Text.Length >= 8
 
                 && tbxRPassword.Text != ""
 
@@ -49,6 +52,30 @@ namespace AgendaMortifera
             else
             {
                 btnSign.Enabled = false;
+            }
+        }
+
+        private void btnSign_Click(object sender, EventArgs e)
+        {
+            // Cadastrando 
+
+            bool cadastro = new UserController().CreateUser(cbxPecado.Text, tbxName.Text, tbxUsuario.Text, tbxPassword.Text, tbxPhone.Text);
+
+            if (cadastro)
+            {
+                this.Close();
+
+                // Sucesso
+
+                MessageBox.Show("Você agora está cadastrado no livro do Diabo!", "Bem-Vindo ao Érebro");
+
+            }
+
+            else
+            {
+                // Erro
+
+                MessageBox.Show("Ocorreu um erro ao cadastrar. Tente novamente!", "Problemas Técnicos");
             }
         }
     }
