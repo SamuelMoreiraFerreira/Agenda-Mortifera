@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCadastrar));
-            lblUsuario = new Label();
-            tbxUsuario = new TextBox();
             lblName = new Label();
             tbxName = new TextBox();
             lblPecado = new Label();
@@ -46,33 +44,9 @@
             lblRPassword = new Label();
             tbxRPassword = new TextBox();
             gbxPessoal = new GroupBox();
-            tbxPhone = new TextBox();
-            lblPhone = new Label();
             gbxSeguranca = new GroupBox();
-            cbxPecado = new ComboBox();
-            gbxPessoal.SuspendLayout();
             gbxSeguranca.SuspendLayout();
             SuspendLayout();
-            // 
-            // lblUsuario
-            // 
-            lblUsuario.AutoSize = true;
-            lblUsuario.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblUsuario.Location = new Point(29, 127);
-            lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(81, 25);
-            lblUsuario.TabIndex = 16;
-            lblUsuario.Text = "Usuário";
-            // 
-            // tbxUsuario
-            // 
-            tbxUsuario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxUsuario.Location = new Point(29, 164);
-            tbxUsuario.Name = "tbxUsuario";
-            tbxUsuario.PlaceholderText = "Ex. NoobMaster69";
-            tbxUsuario.Size = new Size(310, 35);
-            tbxUsuario.TabIndex = 15;
-            tbxUsuario.TextChanged += tbx_TextChanged;
             // 
             // lblName
             // 
@@ -230,37 +204,12 @@
             // 
             // gbxPessoal
             // 
-            gbxPessoal.Controls.Add(tbxUsuario);
-            gbxPessoal.Controls.Add(tbxName);
-            gbxPessoal.Controls.Add(lblName);
-            gbxPessoal.Controls.Add(lblUsuario);
-            gbxPessoal.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gbxPessoal.Location = new Point(46, 185);
+            gbxPessoal.Location = new Point(111, 185);
             gbxPessoal.Name = "gbxPessoal";
-            gbxPessoal.Size = new Size(374, 330);
-            gbxPessoal.TabIndex = 29;
+            gbxPessoal.Size = new Size(200, 100);
+            gbxPessoal.TabIndex = 31;
             gbxPessoal.TabStop = false;
             gbxPessoal.Text = "Informações Pessoais";
-            // 
-            // tbxPhone
-            // 
-            tbxPhone.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxPhone.Location = new Point(29, 256);
-            tbxPhone.Name = "tbxPhone";
-            tbxPhone.PlaceholderText = "(DDD) 777-666";
-            tbxPhone.Size = new Size(310, 35);
-            tbxPhone.TabIndex = 19;
-            tbxPhone.TextChanged += tbx_TextChanged;
-            // 
-            // lblPhone
-            // 
-            lblPhone.AutoSize = true;
-            lblPhone.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblPhone.Location = new Point(29, 219);
-            lblPhone.Name = "lblPhone";
-            lblPhone.Size = new Size(87, 25);
-            lblPhone.TabIndex = 20;
-            lblPhone.Text = "Telefone";
             // 
             // gbxSeguranca
             // 
@@ -274,24 +223,13 @@
             gbxSeguranca.Size = new Size(374, 242);
             gbxSeguranca.TabIndex = 30;
             gbxSeguranca.TabStop = false;
-            gbxSeguranca.Text = "Segurança";
-            // 
-            // cbxPecado
-            // 
-            cbxPecado.BackColor = Color.IndianRed;
-            cbxPecado.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbxPecado.ForeColor = Color.White;
-            cbxPecado.FormattingEnabled = true;
-            cbxPecado.Items.AddRange(new object[] { "Inveja", "Soberba", "Preguiça", "Ira", "Luxúria", "Avareza", "Gula" });
-            cbxPecado.Location = new Point(234, 122);
-            cbxPecado.Name = "cbxPecado";
-            cbxPecado.Size = new Size(374, 38);
-            cbxPecado.TabIndex = 31;
+            gbxSeguranca.Text = "Privacidade e Segurança";
             // 
             // frmCadastrar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(862, 718);
             Controls.Add(gbxSeguranca);
             Controls.Add(gbxPessoal);
@@ -307,8 +245,6 @@
             Name = "frmCadastrar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro";
-            gbxPessoal.ResumeLayout(false);
-            gbxPessoal.PerformLayout();
             gbxSeguranca.ResumeLayout(false);
             gbxSeguranca.PerformLayout();
             ResumeLayout(false);
@@ -323,8 +259,6 @@
         private TextBox tbxName;
         private Label lblPecado;
         private TextBox tbxPecado;
-        private Label lblEmail;
-        private TextBox tbxEmail;
         private Label lblPassword;
         private TextBox tbxPassword;
         private Button btnCancel;
