@@ -46,36 +46,31 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        public bool CreateUser(string pecado, string nome, string usuario, string senha, string telefone)
+        public bool CreateUser(string pecado, string nome, string usuario, string senha, string? telefone)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
+            MySqlConnection connection = ConexaoDB.Connection();
 
             try
             {
-                conexao.Open();
+                connection.Open();
 
-                MySqlCommand cmdInsertInto = new MySqlCommand(
+                MySqlCommand cmdInsertUsuario = new MySqlCommand(
                     "INSERT INTO tb_usuarios VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
-                    conexao
+                    connection
                 );
 
-                cmdInsertInto.Parameters.AddWithValue("@pecado", pecado);
+                cmdInsertUsuario.Parameters.AddWithValue("@pecado", pecado);
 
-                cmdInsertInto.Parameters.AddWithValue("@nome", nome);
+                cmdInsertUsuario.Parameters.AddWithValue("@nome", nome);
 
-                cmdInsertInto.Parameters.AddWithValue("@usuario", usuario);
+                cmdInsertUsuario.Parameters.AddWithValue("@usuario", usuario);
 
-                cmdInsertInto.Parameters.AddWithValue("@telefone", telefone);
+                cmdInsertUsuario.Parameters.AddWithValue("@telefone", telefone);
 
-                cmdInsertInto.Parameters.AddWithValue("@senha", senha);
-
-                int rowsAffected = 0;
+                cmdInsertUsuario.Parameters.AddWithValue("@senha", senha);
 
                 // Retornará a quantidade de linhas afetadas (ExecuteNonQuery)
-                rowsAffected = cmdInsertInto.ExecuteNonQuery();
-
-                // Sucesso, usuário inserido
-                if (rowsAffected > 0)
+                if (cmdInsertUsuario.ExecuteNonQuery() > 0)
                 {
                     // Criar usuário na DB
                     if (this.CreateUserDB(usuario, senha))
@@ -104,7 +99,7 @@ namespace AgendaMortifera.Controllers
 
             finally
             {
-                conexao.Close();
+                connection.Close();
             }
         }
 
@@ -266,35 +261,45 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        public DataTable GetUsers()
+        public DataTable GetContatos()
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
+            MySqlConnection connection = UserSession.Conexao;
 
-            conexao.Open();
-
-            try
+            if (connection != null)
             {
-                MySqlDataAdapter adpGetUsers = new MySqlDataAdapter(
-                    "SELECT tb_usuarios.usuario AS 'User' FROM tb_usuarios;",
-                    conexao
-                );
+                try
+                {
+                    connection.Open();
 
-                DataTable tabela = new DataTable();
+                    MySqlDataAdapter adpGetContatos = new MySqlDataAdapter(
+                        "SELECT tb_contatos.id_contato AS 'ID', tb_contatos.nome AS 'Nome', tb_contatos.endereco AS 'Endereço', tb_contatos.email AS 'E-Mail' FROM tb_contatos WHERE tb_contatos.usuario = SUBSTRING_INDEX(USER(), '@', 1);",
+                        connection
+                    );
 
-                adpGetUsers.Fill(tabela);
+                    DataTable table = new DataTable();
 
-                return tabela;
+                    adpGetContatos.Fill(table);
+
+                    // Tabela contendo os contatos
+                    return table;
+                }
+
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+
+                    return new DataTable();
+                }
+
+                finally
+                {
+                    connection.Close();
+                }
             }
 
-            // Evitando Crash
-            catch (Exception)
+            else
             {
                 return new DataTable();
-            }
-
-            finally
-            {
-                conexao.Close();
             }
         }
 

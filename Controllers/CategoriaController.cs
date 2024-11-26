@@ -139,6 +139,7 @@ namespace AgendaMortifera.Controllers
                     // Inserindo os dados na tabela criada
                     adpGetCategorias.Fill(table);
 
+                    // Tabela contendo as categorias
                     return table;
                 }
 
