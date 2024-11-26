@@ -12,199 +12,153 @@ using AgendaMortifera.StructureDB;
 namespace AgendaMortifera.Controllers
 {
     internal class CategoriaController
-    { 
-        public bool CreateCategoria (string categoria)
+    {
+        public bool CreateCategoria(string categoria)
         {
-            MySqlConnection? conexao = UserSession.Conexao;
+            MySqlConnection connection = UserSession.Conexao;
 
-            if (conexao == null)
+            if (connection != null)
             {
-                return false;
-            }
-
-            conexao.Open();
-
-            try
-            {
-                MySqlCommand cmdInsertInto = new MySqlCommand(
-                    "INSERT INTO tb_categorias (categoria) VALUES (@nome_categoria);",
-                    conexao
-                );
-
-                cmdInsertInto.Parameters.AddWithValue("@nome_categoria", categoria);
-
-                int rowsAffected = 0;
-
-                // Retornará a quantidade de linhas afetadas (ExecuteNonQuery)
-                rowsAffected = cmdInsertInto.ExecuteNonQuery();
-
-                // Sucesso, categoria inserida
-                if (rowsAffected > 0)
+                try
                 {
-                    return true;
+                    connection.Open();
+
+                    MySqlCommand cmdInsertCategoria = new MySqlCommand(
+                        "INSERT INTO tb_categorias (categoria) VALUES (@categoria);",
+                        connection
+                    );
+
+                    cmdInsertCategoria.Parameters.AddWithValue("@categoria", categoria);
+
+                    if (cmdInsertCategoria.ExecuteNonQuery() > 0)
+                    {
+                        // Categoria criada
+
+                        return true;
+                    }
+
+                    else
+                    {
+                        // Erro
+
+                        return false;
+                    }
+
                 }
 
-                // Erro
-                else
+                catch (Exception err)
                 {
+                    MessageBox.Show(err.Message);
+
                     return false;
                 }
+
+                finally
+                {
+                    connection.Close();
+                }
             }
 
-            // Evitando Crash
-            catch (Exception)
+            else
             {
                 return false;
-            }
-
-            finally
-            {
-                conexao.Close();
             }
         }
 
-        public bool DeleteCategoria (string idCategoria)
+        public bool DeleteCategoria(int idCategoria)
         {
-            MySqlConnection conexao = UserSession.Conexao;
+            MySqlConnection connection = UserSession.Conexao;
 
-            if (conexao == null)
+            if (connection != null)
             {
-                return false;
-            }
-
-            conexao.Open();
-
-            try
-            {
-                MySqlCommand cmdDelete = new MySqlCommand(
-                    "DELETE FROM tb_categorias WHERE tb_categorias.id_categoria = @id_categoria;",
-                    conexao
-                );
-
-                cmdDelete.Parameters.AddWithValue("@id_categoria", idCategoria);
-
-                int rowsAffected = 0;
-
-                rowsAffected = cmdDelete.ExecuteNonQuery();
-
-                // Sucesso, categoria excluida
-                if (rowsAffected > 0)
+                try
                 {
-                    return true;
+                    connection.Open();
+
+                    MySqlCommand cmdDeleteCategoria = new MySqlCommand(
+                        "DELETE FROM tb_categorias WHERE tb_categorias.id_categoria = @idCategoria;",
+                        connection
+                    );
+
+                    cmdDeleteCategoria.Parameters.AddWithValue("@idCategoria", idCategoria);
+
+                    if (cmdDeleteCategoria.ExecuteNonQuery() > 0)
+                    {
+                        // Categoria excluída
+
+                        return true;
+                    }
+
+                    else
+                    {
+                        // Erro
+
+                        return false;
+                    }
+
                 }
 
-                // Erro
-                else
+                catch (Exception err)
                 {
+                    MessageBox.Show(err.Message);
+
                     return false;
                 }
+
+                finally
+                {
+                    connection.Close();
+                }
             }
 
-            // Evitando Crash
-            catch (Exception)
+            else
             {
                 return false;
-            }
-
-            finally
-            {
-                conexao.Close();
             }
         }
 
-        public bool RenameCategoria(string idCategoria, string novoNome)
+        public DataTable GetCategorias()
         {
-            MySqlConnection conexao = UserSession.Conexao;
+            MySqlConnection connection = UserSession.Conexao;
 
-            if (conexao == null)
+            if (connection != null)
             {
-                return false;
-            }
-
-            conexao.Open();
-
-            try
-            {
-                MySqlCommand cmdUpdateNome = new MySqlCommand(
-                    "UPDATE tb_categorias.categoria = @novo_nome ON tb_categorias WHERE tb_categorias.id_categoria = @id_categoria",
-                    conexao
-                );
-
-                cmdUpdateNome.Parameters.AddWithValue("@novo_nome", novoNome);
-
-                cmdUpdateNome.Parameters.AddWithValue("@id_categoria", idCategoria);
-
-                int rowsAffected = 0;
-
-                rowsAffected = cmdUpdateNome.ExecuteNonQuery();
-
-                // Sucesso, nome da categoria alterado
-                if (rowsAffected > 0)
+                try
                 {
-                    return true;
+                    connection.Open();
+
+                    // Ponte entre a aplicação e a database, permite trabalhar com dados em memória (MySqlDataAdapter)
+
+                    MySqlDataAdapter adpGetCategorias = new MySqlDataAdapter (
+                        "SELECT tb_categorias.id_categoria AS 'ID', tb_categorias.categoria AS 'Categoria' FROM tb_categorias WHERE tb_categorias.usuario = SUBSTRING_INDEX(USER(), '@', 1);",
+                        connection
+                    );
+
+                    DataTable table = new DataTable();
+
+                    // Inserindo os dados na tabela criada
+                    adpGetCategorias.Fill(table);
+
+                    return table;
                 }
 
-                // Erro
-                else
+                catch (Exception err)
                 {
-                    return false;
+                    MessageBox.Show(err.Message);
+
+                    return new DataTable();
+                }
+
+                finally
+                {
+                    connection.Close();
                 }
             }
 
-            // Evitando Crash
-            catch (Exception)
-            {
-                return false;
-            }
-
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
-        public DataTable GetCategorias ()
-        {
-
-            MySqlConnection conexao = UserSession.Conexao;
-
-            if (conexao == null)
+            else
             {
                 return new DataTable();
             }
-
-            conexao.Open();
-
-            try
-            {
-
-                // Ponte entre a aplicação e a database, permite trabalhar com dados em memória (MySqlDataAdapter)
-                MySqlDataAdapter adpGetCategorias = new MySqlDataAdapter(
-                    "SELECT id_categoria AS 'ID', categoria AS 'Categoria' FROM tb_categorias WHERE tb_categorias.usuario = SUBSTRING_INDEX(USER(), '@', 1);",
-                    conexao
-                );
-
-                // Cria uma tabela vazia
-                DataTable tabela = new DataTable();
-
-                // Preenche a tabela anteriormente criada
-                adpGetCategorias.Fill(tabela);
-
-                return tabela;
-
-            }
-
-            // Evitando Crash
-            catch (Exception)
-            {
-                return new DataTable();
-            }
-
-            finally
-            {
-                conexao.Close();
-            }
-
         }
     }
 }
