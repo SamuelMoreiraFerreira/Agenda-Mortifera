@@ -35,8 +35,8 @@
             tbxName = new TextBox();
             lblPecado = new Label();
             tbxPecado = new TextBox();
-            lblPhone = new Label();
-            tbxPhone = new TextBox();
+            lblEmail = new Label();
+            tbxEmail = new TextBox();
             lblPassword = new Label();
             tbxPassword = new TextBox();
             btnCancel = new Button();
@@ -46,6 +46,8 @@
             lblRPassword = new Label();
             tbxRPassword = new TextBox();
             gbxPessoal = new GroupBox();
+            tbxPhone = new TextBox();
+            lblPhone = new Label();
             gbxSeguranca = new GroupBox();
             cbxPecado = new ComboBox();
             gbxPessoal.SuspendLayout();
@@ -116,25 +118,25 @@
             tbxPecado.TextAlign = HorizontalAlignment.Center;
             tbxPecado.TextChanged += tbx_TextChanged;
             // 
-            // lblPhone
+            // lblEmail
             // 
-            lblPhone.AutoSize = true;
-            lblPhone.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblPhone.Location = new Point(29, 214);
-            lblPhone.Name = "lblPhone";
-            lblPhone.Size = new Size(87, 25);
-            lblPhone.TabIndex = 18;
-            lblPhone.Text = "Telefone";
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            lblEmail.Location = new Point(29, 133);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(68, 25);
+            lblEmail.TabIndex = 18;
+            lblEmail.Text = "E-Mail";
             // 
-            // tbxPhone
+            // tbxEmail
             // 
-            tbxPhone.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxPhone.Location = new Point(29, 251);
-            tbxPhone.Name = "tbxPhone";
-            tbxPhone.PlaceholderText = "(DDD) 777-666";
-            tbxPhone.Size = new Size(310, 35);
-            tbxPhone.TabIndex = 17;
-            tbxPhone.TextChanged += tbx_TextChanged;
+            tbxEmail.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxEmail.Location = new Point(29, 170);
+            tbxEmail.Name = "tbxEmail";
+            tbxEmail.PlaceholderText = "alma_penada@dominio.com";
+            tbxEmail.Size = new Size(310, 35);
+            tbxEmail.TabIndex = 17;
+            tbxEmail.TextChanged += tbx_TextChanged;
             // 
             // lblPassword
             // 
@@ -162,7 +164,7 @@
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnCancel.ForeColor = Color.Black;
-            btnCancel.Location = new Point(668, 618);
+            btnCancel.Location = new Point(668, 634);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(149, 60);
             btnCancel.TabIndex = 24;
@@ -177,7 +179,7 @@
             btnSign.FlatStyle = FlatStyle.Flat;
             btnSign.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnSign.ForeColor = Color.White;
-            btnSign.Location = new Point(46, 532);
+            btnSign.Location = new Point(46, 548);
             btnSign.Name = "btnSign";
             btnSign.Size = new Size(771, 60);
             btnSign.TabIndex = 23;
@@ -232,15 +234,33 @@
             gbxPessoal.Controls.Add(tbxName);
             gbxPessoal.Controls.Add(lblName);
             gbxPessoal.Controls.Add(lblUsuario);
-            gbxPessoal.Controls.Add(tbxPhone);
-            gbxPessoal.Controls.Add(lblPhone);
             gbxPessoal.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             gbxPessoal.Location = new Point(46, 185);
             gbxPessoal.Name = "gbxPessoal";
-            gbxPessoal.Size = new Size(374, 328);
+            gbxPessoal.Size = new Size(374, 330);
             gbxPessoal.TabIndex = 29;
             gbxPessoal.TabStop = false;
             gbxPessoal.Text = "Informações Pessoais";
+            // 
+            // tbxPhone
+            // 
+            tbxPhone.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxPhone.Location = new Point(29, 256);
+            tbxPhone.Name = "tbxPhone";
+            tbxPhone.PlaceholderText = "(DDD) 777-666";
+            tbxPhone.Size = new Size(310, 35);
+            tbxPhone.TabIndex = 19;
+            tbxPhone.TextChanged += tbx_TextChanged;
+            // 
+            // lblPhone
+            // 
+            lblPhone.AutoSize = true;
+            lblPhone.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            lblPhone.Location = new Point(29, 219);
+            lblPhone.Name = "lblPhone";
+            lblPhone.Size = new Size(87, 25);
+            lblPhone.TabIndex = 20;
+            lblPhone.Text = "Telefone";
             // 
             // gbxSeguranca
             // 
@@ -273,7 +293,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(862, 718);
-            Controls.Add(cbxPecado);
             Controls.Add(gbxSeguranca);
             Controls.Add(gbxPessoal);
             Controls.Add(lblErebro);
@@ -298,14 +317,14 @@
 
         #endregion
 
-        private Label lblUsuario;
-        private TextBox tbxUsuario;
+        private Label lblEmail;
+        private TextBox tbxEmail;
         private Label lblName;
         private TextBox tbxName;
         private Label lblPecado;
         private TextBox tbxPecado;
-        private Label lblPhone;
-        private TextBox tbxPhone;
+        private Label lblEmail;
+        private TextBox tbxEmail;
         private Label lblPassword;
         private TextBox tbxPassword;
         private Button btnCancel;
@@ -316,6 +335,5 @@
         private TextBox tbxRPassword;
         private GroupBox gbxPessoal;
         private GroupBox gbxSeguranca;
-        private ComboBox cbxPecado;
     }
 }
