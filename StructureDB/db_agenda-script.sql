@@ -12,12 +12,34 @@ CREATE TABLE IF NOT EXISTS tb_usuarios (
     senha VARCHAR(20) NOT NULL
 );
 
--- USUÁRIO ADMIN
+-- TABELA DE CONTATOS
 
-INSERT INTO tb_usuarios VALUES ("Ganância", "belzebu", "admin", "666-777", "admin123");
+CREATE TABLE IF NOT EXISTS tb_contatos (
+    id_contato INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(50),
+    email VARCHAR(50) NOT NULL,
+    usuario VARCHAR(50),
 
-CREATE USER 'admin'@'%' IDENTIFIED BY 'admin123';
-GRANT ALL PRIVILEGES ON db_agenda.* TO 'admin'@'%' WITH GRANT OPTION;
+    CONSTRAINT fk_usuarios_contatos
+    FOREIGN KEY (usuario)
+    REFERENCES tb_usuarios (usuario)
+    ON DELETE CASCADE
+);
+
+-- TABELA DE TELEFONES
+
+CREATE TABLE IF NOT EXISTS tb_telefones (
+    id_telefone INT AUTO_INCREMENT PRIMARY KEY,
+    telefone VARCHAR(15) NOT NULL,
+    descricao VARCHAR(250),
+    id_contato INT NOT NULL,
+
+    CONSTRAINT fk_contatos_telefones
+    FOREIGN KEY (id_contato)
+    REFERENCES tb_contatos (id_contato)
+    ON DELETE CASCADE
+);
 
 -- TABELA DE CATEGORIAS
 
@@ -26,9 +48,27 @@ CREATE TABLE IF NOT EXISTS tb_categorias (
     usuario VARCHAR(50) NOT NULL,
     categoria VARCHAR(100) NOT NULL,
 
-    CONSTRAINT fk_tbusuarios_tbcategorias
+    CONSTRAINT fk_usuarios_categorias
     FOREIGN KEY (usuario)
     REFERENCES tb_usuarios(usuario)
+    ON DELETE CASCADE
+);
+
+-- TABELA DE AFINIDADES
+
+CREATE TABLE IF NOT EXISTS tb_afinidades (
+    id_tema INT AUTO_INCREMENT PRIMARY KEY,
+    id_contato INT NOT NULL,
+    id_categoria INT NOT NULL,
+
+    CONSTRAINT fk_contatos_afinidades
+    FOREIGN KEY (id_contato)
+    REFERENCES tb_contatos(id_contato)
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_categorias_afinidades
+    FOREIGN KEY (id_categoria)
+    REFERENCES tb_categorias(id_categoria)
     ON DELETE CASCADE
 );
 
@@ -41,8 +81,14 @@ CREATE TABLE IF NOT EXISTS tb_logs (
     descricao VARCHAR(250) NOT NULL
 );
 
+-- USUÁRIO ADMIN
 
--- TRIGGER INSERT CATEGORIAS
+INSERT INTO tb_usuarios VALUES ("Ganância", "belzebu", "admin", "666-777", "admin123");
+
+CREATE USER 'admin'@'%' IDENTIFIED BY 'admin123';
+GRANT ALL PRIVILEGES ON db_agenda.* TO 'admin'@'%' WITH GRANT OPTION;
+
+-- TRIGGER SET PROPRIETARIO CATEGORIA
 
 DELIMITER $$
 

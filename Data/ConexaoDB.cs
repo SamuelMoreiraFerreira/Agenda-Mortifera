@@ -28,6 +28,7 @@ namespace AgendaMortifera.Data
 
             try
             {
+                // Validando a conexão
                 connection.Open();
 
                 return connection;

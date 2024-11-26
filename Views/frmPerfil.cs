@@ -18,12 +18,10 @@ namespace AgendaMortifera.Controllers
 
         public frmPerfil()
         {
-            this.AtualizarDgvCategorias(null, null);
-
             InitializeComponent();
         }
 
-        private void AtualizarDgvCategorias(object sender, EventArgs e)
+        private void AtualizarDgvCategorias()
         {
             dgvCategorias.DataSource = new CategoriaController().GetCategorias();
         }
@@ -47,7 +45,7 @@ namespace AgendaMortifera.Controllers
         // Alterar Senha
         private void btnConfirmarSenha_Click(object sender, EventArgs e)
         {
-            if (new UserController().ModifySenha(UserSession.Usuario, tbxAlterarSenha.Text))
+            if (new UserController().ModifySenha("oi", tbxAlterarSenha.Text))
             {
                 this.Close();
 
@@ -78,6 +76,25 @@ namespace AgendaMortifera.Controllers
         private void btnExcluirCategoria_Click(object sender, EventArgs e)
         {
 
+        }
+
+        // Botão de Atualizar
+        private void ButtonRefresh_Click(object sender, EventArgs e)
+        {
+            this.AtualizarDgvCategorias();
+        }
+
+        private void frmPerfil_Load(object sender, EventArgs e)
+        {
+            this.AtualizarDgvCategorias();
+
+            lblNome.Text = UserSession.UserInfo["nome"].ToString();
+
+            lblUsuario.Text = UserSession.UserInfo["usuario"].ToString();
+
+            lblTelefone.Text = UserSession.UserInfo["telefone"].ToString();
+
+            lblPecado.Text = UserSession.UserInfo["pecado"].ToString();
         }
     }
 }

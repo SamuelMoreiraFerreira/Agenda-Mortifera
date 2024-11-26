@@ -9,23 +9,6 @@ namespace AgendaMortifera.StructureDB
 {
     static public class UserSession
     {
-        static private string _usuario = null;
-
-        static public string Usuario
-        {
-
-            get
-            {
-                return _usuario;
-            }
-
-            set
-            {
-                _usuario = value.ToUpper();
-            }
-
-        }
-
         static private MySqlConnection _conexao = null;
 
         static public MySqlConnection Conexao
@@ -39,6 +22,23 @@ namespace AgendaMortifera.StructureDB
             set
             {
                 _conexao = value;
+            }
+
+        }
+
+        static private Dictionary<string, object> _userInfo = null;
+
+        static public Dictionary<string, object> UserInfo
+        {
+
+            get
+            {
+                return _userInfo;
+            }
+
+            set
+            {
+                _userInfo = value;
             }
 
         }

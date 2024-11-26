@@ -15,7 +15,12 @@ namespace AgendaMortifera.Controllers
     { 
         public bool CreateCategoria (string categoria)
         {
-            MySqlConnection conexao = UserSession.Conexao;
+            MySqlConnection? conexao = UserSession.Conexao;
+
+            if (conexao == null)
+            {
+                return false;
+            }
 
             conexao.Open();
 
@@ -62,6 +67,11 @@ namespace AgendaMortifera.Controllers
         {
             MySqlConnection conexao = UserSession.Conexao;
 
+            if (conexao == null)
+            {
+                return false;
+            }
+
             conexao.Open();
 
             try
@@ -105,6 +115,11 @@ namespace AgendaMortifera.Controllers
         public bool RenameCategoria(string idCategoria, string novoNome)
         {
             MySqlConnection conexao = UserSession.Conexao;
+
+            if (conexao == null)
+            {
+                return false;
+            }
 
             conexao.Open();
 
@@ -152,6 +167,11 @@ namespace AgendaMortifera.Controllers
         {
 
             MySqlConnection conexao = UserSession.Conexao;
+
+            if (conexao == null)
+            {
+                return new DataTable();
+            }
 
             conexao.Open();
 

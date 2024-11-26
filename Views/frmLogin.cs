@@ -37,13 +37,11 @@ namespace AgendaMortifera
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            UserController userController = new UserController();
-
-            if (userController.UserExists(tbxUser.Text, tbxPassword.Text))
+            if (new UserController().ValidateUser(tbxUser.Text, tbxPassword.Text))
             {
-                UserSession.Usuario = tbxUser.Text;
-
                 UserSession.Conexao = ConexaoDB.Connection(tbxUser.Text, tbxPassword.Text);
+
+                UserSession.UserInfo = new UserController().GetUser(tbxUser.Text, tbxPassword.Text);
 
                 frmPerfil screenPerfil = new frmPerfil();
 

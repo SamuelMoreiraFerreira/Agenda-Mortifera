@@ -185,6 +185,11 @@ namespace AgendaMortifera.Controllers
         {
             MySqlConnection conexao = UserSession.Conexao;
 
+            if (conexao == null)
+            {
+                return false;
+            }
+
             try
             {
                 conexao.Open();
@@ -214,6 +219,11 @@ namespace AgendaMortifera.Controllers
         public bool ModifySenha(string usuario, string novaSenha)
         {
             MySqlConnection conexao = UserSession.Conexao;
+
+            if (conexao == null)
+            {
+                return false;
+            }
 
             try
             {
@@ -258,40 +268,6 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        public bool UserExists(string usuario, string senha)
-        {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            try
-            {
-                conexao.Open();
-
-                MySqlCommand cmdVerificacao = new MySqlCommand(
-                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY tb_usuarios.senha = @senha;",
-                    conexao
-                );
-
-                cmdVerificacao.Parameters.AddWithValue("@usuario", usuario);
-
-                cmdVerificacao.Parameters.AddWithValue("@senha", senha);
-
-                // O comando retornará algum valor (ExecuteReader)
-                bool returnValue = cmdVerificacao.ExecuteReader().Read();
-
-                return returnValue;
-            }
-
-            catch (Exception)
-            {
-                return false;
-            }
-
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
         public DataTable GetUsers()
         {
             MySqlConnection conexao = ConexaoDB.Connection();
@@ -321,6 +297,70 @@ namespace AgendaMortifera.Controllers
             finally
             {
                 conexao.Close();
+            }
+        }
+
+        public Dictionary<string, object>? GetUser(string usuario, string senha)
+        {
+            MySqlConnection conexao = ConexaoDB.Connection();
+
+            try
+            {
+                conexao.Open();
+
+                MySqlCommand cmdGetUser = new MySqlCommand(
+                    "SELECT tb_usuarios.pecado, tb_usuarios.nome, tb_usuarios.usuario, tb_usuarios.telefone, tb_usuarios.senha FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY tb_usuarios.senha = @senha;",
+                    conexao
+                );
+
+                cmdGetUser.Parameters.AddWithValue("@usuario", usuario);
+
+                cmdGetUser.Parameters.AddWithValue("@senha", senha);
+
+                MySqlDataReader result = cmdGetUser.ExecuteReader();
+
+                if (result.Read())
+                {
+                    // Passando os dados do MySqlDataReader para um Dictionary para manter os dados após o fechamento da conexão.
+
+                    // Object -> Armazena qualquer tipo de dado
+                    Dictionary<string, object> returnValue = new Dictionary<string, object>();
+
+                    for (int i = 0; i < result.FieldCount; i++)
+                    {
+                        returnValue[result.GetName(i)] = result.GetValue(i);
+                    }
+
+                    return returnValue;
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+
+            catch (Exception)
+            {
+                return null;
+            }
+
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool ValidateUser(string usuario, string senha)
+        {
+            if (this.GetUser(,02usuario, senha) != null)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
             }
         }
     }
