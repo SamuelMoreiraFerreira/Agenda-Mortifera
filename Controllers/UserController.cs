@@ -85,8 +85,6 @@ namespace AgendaMortifera.Controllers
 
                     else
                     {
-                        this.DeleteUser(usuario);
-
                         return false;
                     }
                 }
@@ -353,7 +351,7 @@ namespace AgendaMortifera.Controllers
 
         public bool ValidateUser(string usuario, string senha)
         {
-            if (this.GetUser(,02usuario, senha) != null)
+            if (this.GetUser(usuario, senha) != null)
             {
                 return true;
             }
