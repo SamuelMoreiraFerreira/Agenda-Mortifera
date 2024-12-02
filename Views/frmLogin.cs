@@ -39,9 +39,11 @@ namespace AgendaMortifera
         {
             if (new UserController().ValidateUser(tbxUser.Text, tbxPassword.Text))
             {
+                // Usuário Validado
+
                 UserSession.Conexao = ConexaoDB.Connection(tbxUser.Text, tbxPassword.Text);
 
-                UserSession.UserInfo = new UserController().GetUser(tbxUser.Text, tbxPassword.Text);
+                UserSession.UserInfo = new UserController().GetUser(tbxUser.Text);
 
                 frmPerfil screenPerfil = new frmPerfil();
 
@@ -54,7 +56,7 @@ namespace AgendaMortifera
 
             else
             {
-                // Usuário ou senha incorreta
+                // Usuário Não Validado
 
                 MessageBox.Show("Usuário ou senha incorreta.", "Tente Novamente!");
             }

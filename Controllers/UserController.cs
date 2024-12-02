@@ -57,8 +57,10 @@ namespace AgendaMortifera.Controllers
                 }
             }
 
-            catch (Exception)
+            catch (Exception err)
             {
+                MessageBox.Show(err.Message);
+
                 return false;
             }
 
@@ -93,8 +95,10 @@ namespace AgendaMortifera.Controllers
                 return true;
             }
 
-            catch (Exception)
+            catch (Exception err)
             {
+                MessageBox.Show(err.Message);
+
                 return false;
             }
 
@@ -116,7 +120,7 @@ namespace AgendaMortifera.Controllers
 
                     MySqlCommand cmdUpdatePassword = new MySqlCommand(
                         $@"
-                            UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario;
+                            UPDATE tb_usuarios SET tb_usuarios.senha = @novaSenha WHERE tb_usuarios.usuario = @usuario;
                             ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'
                         ",
                         connection
@@ -124,7 +128,7 @@ namespace AgendaMortifera.Controllers
 
                     cmdUpdatePassword.Parameters.AddWithValue("@usuario", usuario);
 
-                    cmdUpdatePassword.Parameters.AddWithValue("@nova_senha", novaSenha);
+                    cmdUpdatePassword.Parameters.AddWithValue("@novaSenha", novaSenha);
 
                     if (cmdUpdatePassword.ExecuteNonQuery() > 0)
                     {
@@ -245,8 +249,10 @@ namespace AgendaMortifera.Controllers
                 }
             }
 
-            catch (Exception)
+            catch (Exception err)
             {
+                MessageBox.Show(err.Message);
+
                 return null;
             }
 
@@ -265,7 +271,7 @@ namespace AgendaMortifera.Controllers
                 connection.Open();
 
                 MySqlCommand cmdSelectUser = new MySqlCommand(
-                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY senha = @senha;",
+                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY tb_usuarios.senha = @senha;",
                     connection
                 );
 
@@ -273,7 +279,10 @@ namespace AgendaMortifera.Controllers
 
                 cmdSelectUser.Parameters.AddWithValue("@senha", senha);
 
-                if (cmdSelectUser.ExecuteNonQuery() > 0)
+                // Retorna o conjunto dos resultados gerados (ExecuteReader)
+                MySqlDataReader result = cmdSelectUser.ExecuteReader();
+
+                if (result.Read())
                 {
                     // Usuário Validado
 
@@ -288,8 +297,10 @@ namespace AgendaMortifera.Controllers
                 }
             }
 
-            catch (Exception)
+            catch (Exception err)
             {
+                MessageBox.Show(err.Message);
+
                 return false;
             }
 

@@ -46,6 +46,7 @@
             lblTelefone = new Label();
             label2 = new Label();
             lblNome = new Label();
+            btnContatos = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
             gbxSeguranca.SuspendLayout();
             gbxInfo.SuspendLayout();
@@ -238,11 +239,22 @@
             lblNome.TabIndex = 0;
             lblNome.Text = "null";
             // 
+            // btnContatos
+            // 
+            btnContatos.Location = new Point(356, 57);
+            btnContatos.Name = "btnContatos";
+            btnContatos.Size = new Size(80, 142);
+            btnContatos.TabIndex = 12;
+            btnContatos.Text = "button1";
+            btnContatos.UseVisualStyleBackColor = true;
+            btnContatos.Click += btnContatos_Click;
+            // 
             // frmPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 349);
+            Controls.Add(btnContatos);
             Controls.Add(gbxInfo);
             Controls.Add(btnExcluirCategoria);
             Controls.Add(btnEditarCategoria);
@@ -283,5 +295,6 @@
         private Label lblTelefone;
         private Label label2;
         private Label lblNome;
+        private Button btnContatos;
     }
 }

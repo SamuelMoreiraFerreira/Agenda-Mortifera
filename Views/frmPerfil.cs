@@ -96,5 +96,10 @@ namespace AgendaMortifera.Controllers
 
             lblPecado.Text = UserSession.UserInfo["pecado"].ToString();
         }
+
+        private void btnContatos_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace AgendaMortifera.Controllers
 {
     internal class ContatoController
     {
-        public bool CreateContato(string nome, string endereco, string email)
+        public bool CreateContato(string nome, string? endereco, string email)
         {
             MySqlConnection connection = UserSession.Conexao;
 
@@ -329,6 +330,54 @@ namespace AgendaMortifera.Controllers
             else
             {
                 return false;
+            }
+        }
+
+        public DataTable? GetTelefonesContato(int idContato)
+        {
+            MySqlConnection connection = UserSession.Conexao;
+
+            if (connection != null)
+            {
+                try
+                {
+                    connection.Open();
+
+                    MySqlCommand cmdSelectTelefones = new MySqlCommand(
+                        "SELECT * FROM tb_telefones WHERE tb_telefones.id_contato = @idContato;",
+                        connection
+                    );
+
+                    cmdSelectTelefones.Parameters.AddWithValue("@idContato", idContato);
+
+                    MySqlDataAdapter adpSelectTelefones = new MySqlDataAdapter(
+                        cmdSelectTelefones
+                    );
+
+                    DataTable table = new DataTable();
+
+                    adpSelectTelefones.Fill(table);
+
+                    // Tabela contendo os telefones do contato
+                    return table;
+                }
+
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+
+                    return null;
+                }
+
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            else
+            {
+                return null;
             }
         }
     }
