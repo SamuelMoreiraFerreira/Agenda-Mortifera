@@ -99,7 +99,8 @@ namespace AgendaMortifera.Controllers
 
         private void btnContatos_Click(object sender, EventArgs e)
         {
-
+            frmContatos screenContatos = new frmContatos();
+            screenContatos.ShowDialog();
         }
     }
 }

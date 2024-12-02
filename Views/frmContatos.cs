@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgendaMortifera.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +18,19 @@ namespace AgendaMortifera.Views
             InitializeComponent();
         }
 
+        private void AtualizarDgvContatos()
+        {
+            dgvContatos.DataSource = new UserController().GetContatos();
+        }
+
         private void frmContatos_Load(object sender, EventArgs e)
         {
+            this.AtualizarDgvContatos();
+        }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.AtualizarDgvContatos();
         }
     }
 }
