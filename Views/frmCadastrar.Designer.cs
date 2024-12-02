@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCadastrar));
             lblName = new Label();
-            tbxName = new TextBox();
             lblPecado = new Label();
             lblEmail = new Label();
             tbxEmail = new TextBox();
@@ -43,13 +42,13 @@
             lblRPassword = new Label();
             tbxRPassword = new TextBox();
             gbxPessoal = new GroupBox();
-            gbxSeguranca = new GroupBox();
-            tbxUsuario = new TextBox();
-            tbxNome = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
             tbxTelefone = new TextBox();
             lblTelefone = new Label();
+            tbxUsuario = new TextBox();
+            tbxNome = new TextBox();
+            label2 = new Label();
+            label1 = new Label();
+            gbxSeguranca = new GroupBox();
             cbxPecado = new ComboBox();
             gbxPessoal.SuspendLayout();
             gbxSeguranca.SuspendLayout();
@@ -64,16 +63,6 @@
             lblName.Size = new Size(66, 25);
             lblName.TabIndex = 14;
             lblName.Text = "Nome";
-            // 
-            // tbxName
-            // 
-            tbxName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxName.Location = new Point(29, 79);
-            tbxName.Name = "tbxName";
-            tbxName.PlaceholderText = "Ex. Zenon Parelli Bergamo";
-            tbxName.Size = new Size(310, 35);
-            tbxName.TabIndex = 13;
-            tbxName.TextChanged += tbx_TextChanged;
             // 
             // lblPecado
             // 
@@ -212,6 +201,67 @@
             gbxPessoal.TabStop = false;
             gbxPessoal.Text = "Informações Pessoais";
             // 
+            // tbxTelefone
+            // 
+            tbxTelefone.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxTelefone.Location = new Point(29, 260);
+            tbxTelefone.Name = "tbxTelefone";
+            tbxTelefone.PasswordChar = '*';
+            tbxTelefone.PlaceholderText = "(16) 99764-8380";
+            tbxTelefone.Size = new Size(310, 35);
+            tbxTelefone.TabIndex = 33;
+            tbxTelefone.TextChanged += tbx_TextChanged;
+            // 
+            // lblTelefone
+            // 
+            lblTelefone.AutoSize = true;
+            lblTelefone.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            lblTelefone.Location = new Point(29, 223);
+            lblTelefone.Name = "lblTelefone";
+            lblTelefone.Size = new Size(87, 25);
+            lblTelefone.TabIndex = 34;
+            lblTelefone.Text = "Telefone";
+            // 
+            // tbxUsuario
+            // 
+            tbxUsuario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxUsuario.Location = new Point(29, 170);
+            tbxUsuario.Name = "tbxUsuario";
+            tbxUsuario.PasswordChar = '*';
+            tbxUsuario.Size = new Size(310, 35);
+            tbxUsuario.TabIndex = 31;
+            tbxUsuario.TextChanged += tbx_TextChanged;
+            // 
+            // tbxNome
+            // 
+            tbxNome.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxNome.Location = new Point(29, 83);
+            tbxNome.Name = "tbxNome";
+            tbxNome.PasswordChar = '*';
+            tbxNome.Size = new Size(310, 35);
+            tbxNome.TabIndex = 29;
+            tbxNome.TextChanged += tbx_TextChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            label2.Location = new Point(29, 46);
+            label2.Name = "label2";
+            label2.Size = new Size(66, 25);
+            label2.TabIndex = 30;
+            label2.Text = "Nome";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            label1.Location = new Point(29, 133);
+            label1.Name = "label1";
+            label1.Size = new Size(81, 25);
+            label1.TabIndex = 32;
+            label1.Text = "Usuário";
+            // 
             // gbxSeguranca
             // 
             gbxSeguranca.Controls.Add(tbxRPassword);
@@ -226,64 +276,6 @@
             gbxSeguranca.TabStop = false;
             gbxSeguranca.Text = "Privacidade e Segurança";
             // 
-            // tbxUsuario
-            // 
-            tbxUsuario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxUsuario.Location = new Point(29, 170);
-            tbxUsuario.Name = "tbxUsuario";
-            tbxUsuario.PasswordChar = '*';
-            tbxUsuario.Size = new Size(310, 35);
-            tbxUsuario.TabIndex = 31;
-            // 
-            // tbxNome
-            // 
-            tbxNome.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxNome.Location = new Point(29, 83);
-            tbxNome.Name = "tbxNome";
-            tbxNome.PasswordChar = '*';
-            tbxNome.Size = new Size(310, 35);
-            tbxNome.TabIndex = 29;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            label1.Location = new Point(29, 133);
-            label1.Name = "label1";
-            label1.Size = new Size(81, 25);
-            label1.TabIndex = 32;
-            label1.Text = "Usuário";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            label2.Location = new Point(29, 46);
-            label2.Name = "label2";
-            label2.Size = new Size(66, 25);
-            label2.TabIndex = 30;
-            label2.Text = "Nome";
-            // 
-            // tbxTelefone
-            // 
-            tbxTelefone.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbxTelefone.Location = new Point(29, 260);
-            tbxTelefone.Name = "tbxTelefone";
-            tbxTelefone.PasswordChar = '*';
-            tbxTelefone.PlaceholderText = "(16) 99764-8380";
-            tbxTelefone.Size = new Size(310, 35);
-            tbxTelefone.TabIndex = 33;
-            // 
-            // lblTelefone
-            // 
-            lblTelefone.AutoSize = true;
-            lblTelefone.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            lblTelefone.Location = new Point(29, 223);
-            lblTelefone.Name = "lblTelefone";
-            lblTelefone.Size = new Size(87, 25);
-            lblTelefone.TabIndex = 34;
-            lblTelefone.Text = "Telefone";
-            // 
             // cbxPecado
             // 
             cbxPecado.BackColor = Color.IndianRed;
@@ -294,6 +286,7 @@
             cbxPecado.Name = "cbxPecado";
             cbxPecado.Size = new Size(374, 38);
             cbxPecado.TabIndex = 29;
+            cbxPecado.TextChanged += tbx_TextChanged;
             // 
             // frmCadastrar
             // 
@@ -328,7 +321,6 @@
         private Label lblEmail;
         private TextBox tbxEmail;
         private Label lblName;
-        private TextBox tbxName;
         private Label lblPecado;
         private Label lblPassword;
         private TextBox tbxPassword;

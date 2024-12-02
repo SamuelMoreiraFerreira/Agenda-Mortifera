@@ -31,9 +31,9 @@ namespace AgendaMortifera
 
             if (
 
-                tbxName.Text != ""
+                tbxNome.Text != ""
 
-                /*&& tbxUsuario.Text != ""
+                && tbxUsuario.Text != ""
 
                 && cbxPecado.Text != ""
 
@@ -41,7 +41,7 @@ namespace AgendaMortifera
 
                 && tbxRPassword.Text != ""
 
-                && tbxPassword.Text == tbxRPassword.Text*/
+                && tbxPassword.Text == tbxRPassword.Text
 
             )
 

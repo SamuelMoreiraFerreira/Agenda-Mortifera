@@ -13,39 +13,6 @@ namespace AgendaMortifera.Controllers
 {
     internal class UserController
     {
-
-        private bool CreateUserDB(string usuario, string senha)
-        {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            try
-            {
-                conexao.Open();
-
-                MySqlCommand cmdCreateUser = new MySqlCommand(
-                   $@"CREATE USER '{usuario}'@'%' IDENTIFIED BY '{senha}';
-                      GRANT SELECT ON db_agenda.tb_categorias TO '{usuario}'@'%';",
-                   conexao
-                );
-
-                cmdCreateUser.ExecuteNonQuery();
-
-                // Sucesso, usuário criado na DB
-                return true;
-            }
-
-            // Evitando crash
-            catch (Exception)
-            {
-                return false;
-            }
-
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
         public bool CreateUser(string pecado, string nome, string usuario, string senha, string? telefone)
         {
             MySqlConnection connection = ConexaoDB.Connection();
@@ -54,44 +21,42 @@ namespace AgendaMortifera.Controllers
             {
                 connection.Open();
 
-                MySqlCommand cmdInsertUsuario = new MySqlCommand(
-                    "INSERT INTO tb_usuarios VALUES (@pecado, @nome, @usuario, @telefone, @senha);",
+                MySqlCommand cmdInsertUser = new MySqlCommand(
+                    $@"
+                        INSERT INTO tb_usuarios VALUES (@pecado, @nome, @usuario, @telefone, @senha);
+                        CREATE USER '{usuario}'@'%' IDENTIFIED BY '{senha}';
+                        GRANT SELECT ON db_agenda.tb_categorias TO '{usuario}'@'%';
+                    ",
                     connection
                 );
 
-                cmdInsertUsuario.Parameters.AddWithValue("@pecado", pecado);
+                cmdInsertUser.Parameters.AddWithValue("@pecado", pecado);
 
-                cmdInsertUsuario.Parameters.AddWithValue("@nome", nome);
+                cmdInsertUser.Parameters.AddWithValue("@nome", nome);
 
-                cmdInsertUsuario.Parameters.AddWithValue("@usuario", usuario);
+                cmdInsertUser.Parameters.AddWithValue("@usuario", usuario);
 
-                cmdInsertUsuario.Parameters.AddWithValue("@telefone", telefone);
+                cmdInsertUser.Parameters.AddWithValue("@telefone", telefone);
 
-                cmdInsertUsuario.Parameters.AddWithValue("@senha", senha);
+                cmdInsertUser.Parameters.AddWithValue("@senha", senha);
 
                 // Retornará a quantidade de linhas afetadas (ExecuteNonQuery)
-                if (cmdInsertUsuario.ExecuteNonQuery() > 0)
-                {
-                    // Criar usuário na DB
-                    if (this.CreateUserDB(usuario, senha))
-                    {
-                        return true;
-                    }
 
-                    else
-                    {
-                        return false;
-                    }
+                if (cmdInsertUser.ExecuteNonQuery() > 0)
+                {
+                    // Usuário Inserido
+
+                    return true;
                 }
 
-                // Erro
                 else
                 {
+                    // Erro
+
                     return false;
                 }
             }
 
-            // Evitando Crash
             catch (Exception)
             {
                 return false;
@@ -103,98 +68,28 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        private bool DeleteUserDB(string usuario)
-        {
-            MySqlConnection conexao = ConexaoDB.Connection();
-
-            try
-            {
-                conexao.Open();
-
-                MySqlCommand cmdDeleteUserDB = new MySqlCommand(
-                    $"DROP USER '{usuario}'@'%';",
-                    conexao
-                );
-
-                cmdDeleteUserDB.ExecuteNonQuery();
-
-                // Sucesso, usuário deletado na DB
-                return true;
-            }
-
-            // Evitando Crash
-            catch (Exception)
-            {
-                return false;
-            }
-
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
         public bool DeleteUser(string usuario)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
+            MySqlConnection connection = ConexaoDB.Connection();
 
             try
             {
-                conexao.Open();
+                connection.Open();
 
                 MySqlCommand cmdDeleteUser = new MySqlCommand(
-                    "DELETE FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
-                    conexao
+                    $@"
+                        DELETE FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;
+                        DROP USER '{usuario}'@'%';
+                    ",
+                    connection
                 );
 
                 cmdDeleteUser.Parameters.AddWithValue("@usuario", usuario);
 
-                if (this.DeleteUserDB(usuario))
-                {
-                    cmdDeleteUser.ExecuteNonQuery();
+                cmdDeleteUser.ExecuteNonQuery();
 
-                    return true;
-                }
+                // Usuário Deletado
 
-                else
-                {
-                    return false;
-                }
-            }
-
-            // Evitando Crash
-            catch (Exception)
-            {
-                return false;
-            }
-
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
-        private bool ModifySenhaDB(string usuario, string novaSenha)
-        {
-            MySqlConnection conexao = UserSession.Conexao;
-
-            if (conexao == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                conexao.Open();
-
-                MySqlCommand cmdModifySenhaDB = new MySqlCommand(
-                    $"ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'",
-                    conexao
-                );
-
-                cmdModifySenhaDB.ExecuteNonQuery();
-
-                // Sucesso, senha alterada na DB
                 return true;
             }
 
@@ -205,59 +100,64 @@ namespace AgendaMortifera.Controllers
 
             finally
             {
-                conexao.Close();
+                connection.Close();
             }
         }
 
         public bool ModifySenha(string usuario, string novaSenha)
         {
-            MySqlConnection conexao = UserSession.Conexao;
+            MySqlConnection connection = UserSession.Conexao;
 
-            if (conexao == null)
+            if (connection != null)
             {
-                return false;
-            }
-
-            try
-            {
-                conexao.Open();
-
-                MySqlCommand cmdModifySenha = new MySqlCommand(
-                    "UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario",
-                    conexao
-                );
-
-                cmdModifySenha.Parameters.AddWithValue("@usuario", usuario);
-
-                cmdModifySenha.Parameters.AddWithValue("@nova_senha", novaSenha);
-
-                int rowsAffected = 0;
-
-                rowsAffected = cmdModifySenha.ExecuteNonQuery();
-
-                // Sucesso, senha alterada
-                if (rowsAffected > 0)
+                try
                 {
-                    this.ModifySenhaDB(usuario, novaSenha);
+                    connection.Open();
 
-                    return true;
+                    MySqlCommand cmdUpdatePassword = new MySqlCommand(
+                        $@"
+                            UPDATE tb_usuarios SET tb_usuarios.senha = @nova_senha WHERE tb_usuarios.usuario = @usuario;
+                            ALTER USER '{usuario}'@'%' IDENTIFIED BY '{novaSenha}'
+                        ",
+                        connection
+                    );
+
+                    cmdUpdatePassword.Parameters.AddWithValue("@usuario", usuario);
+
+                    cmdUpdatePassword.Parameters.AddWithValue("@nova_senha", novaSenha);
+
+                    if (cmdUpdatePassword.ExecuteNonQuery() > 0)
+                    {
+                        // Senha do usuário alterada
+
+                        return true;
+                    }
+
+                    else
+                    {
+                        // Erro
+
+                        return false;
+                    }
+
                 }
 
-                // Erro
-                else
+                catch (Exception err)
                 {
+                    MessageBox.Show(err.Message);
+
                     return false;
                 }
+
+                finally
+                {
+                    connection.Close();
+                }
             }
 
-            catch (Exception)
+            else
             {
                 return false;
-            }
-
-            finally
-            {
-                conexao.Close();
             }
         }
 
@@ -303,22 +203,20 @@ namespace AgendaMortifera.Controllers
             }
         }
 
-        public Dictionary<string, object>? GetUser(string usuario, string senha)
+        public Dictionary<string, object>? GetUser(string usuario)
         {
-            MySqlConnection conexao = ConexaoDB.Connection();
+            MySqlConnection connection = ConexaoDB.Connection();
 
             try
             {
-                conexao.Open();
+                connection.Open();
 
                 MySqlCommand cmdGetUser = new MySqlCommand(
-                    "SELECT tb_usuarios.pecado, tb_usuarios.nome, tb_usuarios.usuario, tb_usuarios.telefone, tb_usuarios.senha FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY tb_usuarios.senha = @senha;",
-                    conexao
+                    "SELECT tb_usuarios.pecado, tb_usuarios.nome, tb_usuarios.usuario, tb_usuarios.telefone, tb_usuarios.senha FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario;",
+                    connection
                 );
 
                 cmdGetUser.Parameters.AddWithValue("@usuario", usuario);
-
-                cmdGetUser.Parameters.AddWithValue("@senha", senha);
 
                 MySqlDataReader result = cmdGetUser.ExecuteReader();
 
@@ -326,7 +224,7 @@ namespace AgendaMortifera.Controllers
                 {
                     // Passando os dados do MySqlDataReader para um Dictionary para manter os dados após o fechamento da conexão.
 
-                    // Object -> Armazena qualquer tipo de dado
+                    // Tipo Object -> Armazena qualquer tipo de dado
                     Dictionary<string, object> returnValue = new Dictionary<string, object>();
 
                     for (int i = 0; i < result.FieldCount; i++)
@@ -334,11 +232,15 @@ namespace AgendaMortifera.Controllers
                         returnValue[result.GetName(i)] = result.GetValue(i);
                     }
 
+                    // Dicionário com as informações do usuário
+
                     return returnValue;
                 }
 
                 else
                 {
+                    // Erro
+
                     return null;
                 }
             }
@@ -350,20 +252,50 @@ namespace AgendaMortifera.Controllers
 
             finally
             {
-                conexao.Close();
+                connection.Close();
             }
         }
 
         public bool ValidateUser(string usuario, string senha)
         {
-            if (this.GetUser(usuario, senha) != null)
+            MySqlConnection connection = ConexaoDB.Connection();
+
+            try
             {
-                return true;
+                connection.Open();
+
+                MySqlCommand cmdSelectUser = new MySqlCommand(
+                    "SELECT * FROM tb_usuarios WHERE tb_usuarios.usuario = @usuario AND BINARY senha = @senha;",
+                    connection
+                );
+
+                cmdSelectUser.Parameters.AddWithValue("@usuario", usuario);
+
+                cmdSelectUser.Parameters.AddWithValue("@senha", senha);
+
+                if (cmdSelectUser.ExecuteNonQuery() > 0)
+                {
+                    // Usuário Validado
+
+                    return true;
+                }
+
+                else
+                {
+                    // Usuário Não Validado
+
+                    return false;
+                }
             }
 
-            else
+            catch (Exception)
             {
                 return false;
+            }
+
+            finally
+            {
+                connection.Close();
             }
         }
     }
