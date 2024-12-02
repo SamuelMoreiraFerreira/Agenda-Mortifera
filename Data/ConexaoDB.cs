@@ -20,7 +20,7 @@ namespace AgendaMortifera.Data
             return connection;
         }
 
-        public static MySqlConnection Connection(string usuario, string senha)
+        public static MySqlConnection? Connection(string usuario, string senha)
         {
             string token = $"Server=localhost;Database=db_agenda;User ID={usuario};Password={senha};";
 
@@ -34,9 +34,11 @@ namespace AgendaMortifera.Data
                 return connection;
             }
 
-            catch (Exception)
+            catch (Exception err)
             {
-                throw;
+                MessageBox.Show(err.Message);
+
+                return null;
             }
 
             finally
