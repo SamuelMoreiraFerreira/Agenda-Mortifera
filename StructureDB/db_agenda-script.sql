@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS tb_categorias (
 -- TABELA DE AFINIDADES
 
 CREATE TABLE IF NOT EXISTS tb_afinidades (
-    id_tema INT AUTO_INCREMENT PRIMARY KEY,
+    id_afinidade INT AUTO_INCREMENT PRIMARY KEY,
     id_contato INT NOT NULL,
     id_categoria INT NOT NULL,
 
